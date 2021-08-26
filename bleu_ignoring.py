@@ -327,22 +327,27 @@ def modified_precision(references, hypothesis, n, ignoring=None):
             max_counts[ngram] = max(max_counts.get(
                 ngram, 0), reference_counts[ngram])
 
+    if ignoring:
+        for k, v in counts.items():
+            if (k in ignoring) and (ignoring[k] > 1):
+                counts[k] /= math.log(ignoring[k])
+                max_counts[k] /= math.log(ignoring[k])
     # Assigns the intersection between hypothesis and references' counts.
     clipped_counts = {
         ngram: min(count, max_counts[ngram]) for ngram, count in counts.items()
     }
 
-    numerator = sum(clipped_counts.values())
+    numerator = int(sum(clipped_counts.values()))
     # Ensures that denominator is minimum 1 to avoid ZeroDivisionError.
     # Usually this happens when the ngram order is > len(reference).
-    denominator = max(1, sum(counts.values()))
+    denominator = int(max(1, sum(counts.values())))
 
     return Fraction(numerator, denominator, _normalize=False)
 
 
 def ngrams_ignoring(sequence, n, ignoring=None):
     all_ngrams = ngrams(sequence, n)
-    if ignoring == None:
+    if True:#ignoring == None:
         return all_ngrams
     return [i for i in all_ngrams if i not in ignoring]
 
