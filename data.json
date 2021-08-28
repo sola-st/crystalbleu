@@ -1,0 +1,1002 @@
+[
+  {
+    "id": "1000",
+    "code1": "catch ( Exception e ) { return null ; }\n",
+    "code2": "catch ( SecurityException e ) { LogUtil . printException (  \" SecurityException \"  , e ) ; } catch ( IllegalArgumentException e ) { LogUtil . printException (  \" IllegalArgumentException \"  , e ) ; } catch ( IllegalAccessException e ) { LogUtil . printException (  \" IllegalAccessException \"  , e ) ; } catch ( NoSuchMethodException e ) { LogUtil . e (  \" NoSuchMethodException \"  , methodName ) ; } catch ( InvocationTargetException e ) { Throwable cause = e . getCause ( ) ; if ( cause instanceof RuntimeException ) { throw ( RuntimeException ) cause ; } else if ( cause instanceof Error ) { throw ( Error ) cause ; } else { throw new RuntimeException (  \" fail to calling method  \"  + methodName ) ; } }\n"
+  },
+  {
+    "id": "1001",
+    "code1": "catch ( Throwable t ) { t . printStackTrace ( ) ; }\n",
+    "code2": "catch ( CompilationFailedException e ) { System . err . println ( e ) ; return false ; } catch ( Throwable e ) { if ( e instanceof InvokerInvocationException ) { InvokerInvocationException iie = ( InvokerInvocationException ) e ; e = iie . getCause ( ) ; } System . err . println (  \" Caught:  \"  + e ) ; if ( ! debug ) { StackTraceUtils . deepSanitize ( e ) ; } e . printStackTrace ( ) ; return false ; }\n"
+  },
+  {
+    "id": "1002",
+    "code1": "catch ( Exception e ) { return null ; }\n",
+    "code2": "catch ( Exception e ) { System . err . println (  \" **> allmethods003a: load class: exception thrown =  \"  + e . toString ( ) ) ; print_log_on_verbose (  \" --> allmethods003a: checked class NOT loaded: \"  + checked_class_name ) ; }\n"
+  },
+  {
+    "id": "1003",
+    "code1": "catch ( SQLException e ) { e . printStackTrace ( ) ; }\n",
+    "code2": "catch ( Exception e ) { logger . log ( Level . WARNING ,  \" Error adding watch to daemon config. \"  , e ) ; eventBus . post ( new ConnectManagementResponse ( ConnectManagementResponse . NOK_OPERATION_FAILED , new ConnectOperationResult ( ) , request . getId ( ) ) ) ; }\n"
+  },
+  {
+    "id": "1004",
+    "code1": "catch ( Exception e ) { result = Collections . emptyMap ( ) ; }\n",
+    "code2": "catch ( CheckException e ) { data . put (  \" code \"  , - 1 ) ; data . put (  \" msg \"  , e . getMessage ( ) ) ; } catch ( Exception e ) { log . error (  \" delete config error \"  , e ) ; data . put (  \" code \"  , 99 ) ; data . put (  \" msg \"  , e . toString ( ) ) ; }\n"
+  },
+  {
+    "id": "1005",
+    "code1": "catch ( ReflectiveOperationException e ) { throw new <unk> ( e . getMessage ( ) , e ) ; }\n",
+    "code2": "catch ( Throwable t ) { for ( DataSourceMeta dsm : dataSourceMetas ) { dsm . rollbackTransaction ( ) ; } Throwable cause = t . getCause ( ) ; if ( cause == null ) { cause = t ; } if ( cause instanceof HttpException ) { throw ( HttpException ) cause ; } else { throw new InterceptorException ( cause . getMessage ( ) , cause ) ; } }\n"
+  },
+  {
+    "id": "1006",
+    "code1": "catch ( Exception e ) { Log . err ( e ) ; }\n",
+    "code2": "catch ( NumberFormatException e ) { throw new NumberFormatException (  \" Invalid setting for system property:  \"  + feature . systemProperty ( ) ) ; }\n"
+  },
+  {
+    "id": "1007",
+    "code1": "catch ( InterruptedException | ExecutionException e ) { throw new RuntimeException ( e ) ; }\n",
+    "code2": "catch ( TimeoutException e ) { throw new ElasticsearchTimeoutException ( e ) ; } catch ( InterruptedException e ) { Thread . currentThread ( ) . interrupt ( ) ; throw new IllegalStateException (  \" Future got interrupted \"  , e ) ; } catch ( ExecutionException e ) { throw FutureUtils . rethrowExecutionException ( e ) ; }\n"
+  },
+  {
+    "id": "1008",
+    "code1": "catch ( Exception e ) { throw new RuntimeException ( e ) ; }\n",
+    "code2": "catch ( Throwable ex ) { LOG . error ( ex . getMessage ( ) , ex ) ; return super . createProxy ( beanClass , beanName , specificInterceptors , targetSource ) ; }\n"
+  },
+  {
+    "id": "1009",
+    "code1": "catch ( Throwable e ) { rtn = defaultValue ; }\n",
+    "code2": "catch ( Exception e ) { rtn = defaultValue ; LogUtil . fatalLog . error (  \" corrupt switch value {}={} \"  , key , switches . get ( key ) ) ; }\n"
+  },
+  {
+    "id": "1010",
+    "code1": "catch ( IndexOutOfBoundsException ex ) { return null ; }\n",
+    "code2": "catch ( IllegalArgumentException e ) { throw new RouterException (  \" Invalid range for blob \"  , e , RouterErrorCode . RangeNotSatisfiable ) ; }\n"
+  },
+  {
+    "id": "1011",
+    "code1": "catch ( Exception exception ) { return DataSources . immediateFailedDataSource ( exception ) ; }\n",
+    "code2": "catch ( Exception e ) { logger . error (  \" scp local= \"  + Arrays . toString ( localFiles ) +  \"  to  \"  + remoteTargetDirectory +  \"  remote= \"  + Arrays . toString ( remoteFiles ) +  \"  err \"  , e ) ; return new Result ( e ) ; }\n"
+  },
+  {
+    "id": "1012",
+    "code1": "catch ( JsonProcessingException processingException ) { throw JsonException . fromJackson ( processingException ) ; } catch ( IOException ioe ) { return throwUnchecked ( ioe , clazz ) ; }\n",
+    "code2": "catch ( UnknownTypeException ute ) { ; }\n"
+  },
+  {
+    "id": "1013",
+    "code1": "catch ( Exception e ) { Luyten . showExceptionDialog (  \" Exception! \"  , e ) ; }\n",
+    "code2": "catch ( IOException e ) { e . printStackTrace ( ) ; LOG . error (  \" Failed to create HTML report directory:  \"  + outPath . toString ( ) +  \" . HTML report won't be generated! \"  , e ) ; return ; }\n"
+  },
+  {
+    "id": "1014",
+    "code1": "catch ( Exception e ) { if ( DEBUG ) { LogX . d ( TAG ,  \" \u6e05\u7406\u6570\u636e\u5e93\u5931\u8d25:  \"  + e . toString ( ) ) ; } }\n",
+    "code2": "catch ( CertPathValidatorException e ) { assertEquals ( index , e . getIndex ( ) ) ; assertTrue ( e . getMessage ( ) . startsWith ( mesStart ) ) ; assertTrue ( e . getMessage ( ) . endsWith ( mesEnd ) ) ; }\n"
+  },
+  {
+    "id": "1015",
+    "code1": "catch ( Throwable t ) { <unk> . addError ( t ) ; }\n",
+    "code2": "catch ( IllegalArgumentException e ) { fail (  \" Failed to sort with two kinds of alphabets \"  ) ; }\n"
+  },
+  {
+    "id": "1016",
+    "code1": "catch ( Exception ex ) { log . warn ( null , ex ) ; return null ; }\n",
+    "code2": "catch ( IOException ioe ) { LOGGER . error (  \" Failed to run state store cleaner for directory:  \"  + this . stateStoreDir , ioe ) ; }\n"
+  },
+  {
+    "id": "1017",
+    "code1": "catch ( <unk> e ) { e . printStackTrace ( ) ; Assert . fail ( \" Error loading \" + res + \" <unk> \" + e . getMessage ( ) ) ; }\n",
+    "code2": "catch ( IOException ex ) { throw new IllegalStateException ( ex ) ; }\n"
+  },
+  {
+    "id": "1018",
+    "code1": "catch ( FileNotFoundException e ) { e . printStackTrace ( ) ; }\n",
+    "code2": "catch ( MalformedURLException e ) { LOGGER . error (  \" Unable to convert URI '{}' to URL. \"  , e , event . getURI ( ) ) ; return ; }\n"
+  },
+  {
+    "id": "1019",
+    "code1": "catch ( AmbariRuntimeException e ) { e . printStackTrace ( ) ; }\n",
+    "code2": "catch ( AmbariException e ) { LOG . warn ( String . format (  \" Failed to reset alert definitions for host with id %s \"  , hostId ) , e ) ; }\n"
+  },
+  {
+    "id": "1020",
+    "code1": "catch ( RemoteException e ) { e . printStackTrace ( ) ; }\n",
+    "code2": "catch ( IOException e ) { throw new CompletionException ( new FlinkException (  \" Could not upload blob. \"  , e ) ) ; }\n"
+  },
+  {
+    "id": "1021",
+    "code1": "catch ( BlockException ex ) { ex . printStackTrace ( ) ; }\n",
+    "code2": "catch ( Exception e ) { Log . e ( LOG_TAG ,  \" Cannot cast to Matrix error  \"  + e . getLocalizedMessage ( ) , e ) ; }\n"
+  },
+  {
+    "id": "1022",
+    "code1": "catch ( Exception ioe ) { String message =  \" Error executing Service Advisor:  \"  ; LOG . error ( message , ioe ) ; throw new Exception ( message + ioe . getMessage ( ) ) ; }\n",
+    "code2": "catch ( Exception e ) { throw logAndConvert ( e ) ; }\n"
+  },
+  {
+    "id": "1023",
+    "code1": "catch ( Throwable e ) { throw new RuntimeException ( e ) ; }\n",
+    "code2": "catch ( IOException e ) { Logger . getLogger ( Utils . class . getName ( ) ) . log ( Level . WARNING , null , e ) ; }\n"
+  },
+  {
+    "id": "1024",
+    "code1": "catch ( VMDisconnectedException e ) { log3 (  \" ERROR: VMDisconnectedException :  \"  + e ) ; return 2 ; } catch ( Exception e ) { log3 (  \" ERROR: Exception :  \"  + e ) ; return 1 ; }\n",
+    "code2": "catch ( CommandProcessorException e ) { return e . getResponseCode ( ) ; }\n"
+  },
+  {
+    "id": "1025",
+    "code1": "catch ( MalformedURLException ex ) { Exceptions . printStackTrace ( ex ) ; }\n",
+    "code2": "catch ( Throwable t ) { succeeded = false ; lastFailure = t ; }\n"
+  },
+  {
+    "id": "1026",
+    "code1": "catch ( IllegalArgumentException e ) { assertEquals ( expectedHighError +  \" :  \"  + expectedLowError , Exceptions . toMessageString ( e ) ) ; }\n",
+    "code2": "catch ( Exception e ) { e . printStackTrace ( ) ; }\n"
+  },
+  {
+    "id": "1027",
+    "code1": "catch ( Exception e ) { logger . error ( \" Error sending command \" , e ) ; }\n",
+    "code2": "catch ( UnsupportedEncodingException e ) { logger . warn (  \" Error preparing command \"  , e ) ; } catch ( IOException e ) { logger . warn (  \" Error sending command \"  , e ) ; }\n"
+  },
+  {
+    "id": "1028",
+    "code1": "catch ( IOException e ) { e . printStackTrace ( ) ; }\n",
+    "code2": "catch ( Exception e ) { System . err . println (  \" Error: exception thrown and caught: \"  ) ; e . printStackTrace ( ) ; }\n"
+  },
+  {
+    "id": "1029",
+    "code1": "catch ( Exception e ) { logger . error (  \" NODE {}: Restore from config: Error deserialising XML file. {} \"  , nodeId , e . toString ( ) ) ; node = null ; }\n",
+    "code2": "catch ( RuntimeException e ) { Assert . fail (  \" RuntimeException thrown \"  ) ; }\n"
+  },
+  {
+    "id": "1030",
+    "code1": "catch ( AssertionError e ) { verify ( failures ) . failure ( info , shouldHaveParent ( actual , expectedParent ) ) ; }\n",
+    "code2": "catch ( IOException e ) { throw new JSONException (  \" Unable to preserve stream position \"  , e ) ; }\n"
+  },
+  {
+    "id": "1031",
+    "code1": "catch ( InterruptedException e ) { logger . warn ( \" <unk> \" , e ) ; }\n",
+    "code2": "catch ( InterruptedException e ) { Thread . currentThread ( ) . interrupt ( ) ; if ( logger != null ) { logger . warn ( e . getMessage ( ) , e ) ; } }\n"
+  },
+  {
+    "id": "1032",
+    "code1": "catch ( Exception ex ) { LOG . error ( format ( \" error in <unk> container %s \" , <unk> . <unk> ( ) ) , error ) ; }\n",
+    "code2": "catch ( InterruptedException e ) { e . printStackTrace ( ) ; }\n"
+  },
+  {
+    "id": "1033",
+    "code1": "catch ( Exception ex ) { ex . printStackTrace ( ) ; }\n",
+    "code2": "catch ( Throwable ex ) { stats . onGroupError ( group , expectResources , ex ) ; }\n"
+  },
+  {
+    "id": "1034",
+    "code1": "catch ( PrivilegedActionException e ) { throw ( GroovyRuntimeException ) e . getCause ( ) ; }\n",
+    "code2": "catch ( PrivilegedActionException e ) { if ( e . getCause ( ) instanceof NoSuchMethodException ) throw ( IllegalAccessException ) e . getCause ( ) ; throw new RuntimeException ( e . getCause ( ) ) ; }\n"
+  },
+  {
+    "id": "1035",
+    "code1": "catch ( Exception e ) { System . err . println (  \" Client died... \"  ) ; clientException = e ; }\n",
+    "code2": "catch ( TwitterException te ) { te . printStackTrace ( ) ; System . out . println (  \" Failed to show the list:  \"  + te . getMessage ( ) ) ; System . exit ( - 1 ) ; }\n"
+  },
+  {
+    "id": "1036",
+    "code1": "catch ( Throwable t ) { unexpected ( t ) ; }\n",
+    "code2": "catch ( final Exception e ) { throw new RuntimeException ( e ) ; }\n"
+  },
+  {
+    "id": "1037",
+    "code1": "catch ( BadLocationException ex ) { return false ; }\n",
+    "code2": "catch ( Exception e ) { throw new RuntimeException ( e . getMessage ( ) , e ) ; }\n"
+  },
+  {
+    "id": "1038",
+    "code1": "catch ( IOException e ) { throw new UnirestException ( e ) ; } catch ( IOException e ) { throw new UnirestException ( e ) ; }\n",
+    "code2": "catch ( IllegalArgumentException e ) { throw badRequest ( format (  \" Invalid %s header: %s \"  , PRESTO_PREPARED_STATEMENT , e . getMessage ( ) ) ) ; }\n"
+  },
+  {
+    "id": "1039",
+    "code1": "catch ( IOException ioe ) { ioe . printStackTrace ( ) ; }\n",
+    "code2": "catch ( Throwable t ) { throw rethrow ( t ) ; }\n"
+  },
+  {
+    "id": "1040",
+    "code1": "catch ( Exception ex ) { throw new TransformerException ( ex ) ; }\n",
+    "code2": "catch ( RuntimeException re ) { TransformerException te = new TransformerException ( re ) ; te . setLocator ( t ) ; throw te ; }\n"
+  },
+  {
+    "id": "1041",
+    "code1": "catch ( IOException e ) { if ( isDiagnosticsEnabled ( ) ) { logDiagnostic (  \" Exception while trying to find configuration file  \"  + name +  \" : \"  + e . getMessage ( ) ) ; } return null ; } catch ( NoSuchMethodError e ) { return null ; }\n",
+    "code2": "catch ( IOException e ) { String msg =  \" Error de-serializing job configuration:  \"  + e ; throw new IllegalStateException ( msg , e ) ; }\n"
+  },
+  {
+    "id": "1042",
+    "code1": "catch ( Exception e ) { return false ; }\n",
+    "code2": "catch ( IllegalAccessException | InvocationTargetException e ) { return false ; }\n"
+  },
+  {
+    "id": "1043",
+    "code1": "catch ( InvalidKeyException exception ) { throw new IllegalStateException ( exception ) ; }\n",
+    "code2": "catch ( GeneralSecurityException ge ) { Log . w (  \" bodycipher \"  , ge ) ; return null ; }\n"
+  },
+  {
+    "id": "1044",
+    "code1": "catch ( RemoteException e ) { Log . e ( TAG ,  \" Dead object in adjustVolume \"  , e ) ; }\n",
+    "code2": "catch ( IOException e ) { throw new UncheckedIOException ( e ) ; }\n"
+  },
+  {
+    "id": "1045",
+    "code1": "catch ( Exception e ) { throw new RuntimeException ( e ) ; }\n",
+    "code2": "catch ( Exception e ) { throw new StreamTaskException (  \" Could not instantiate state partitioner. \"  , e ) ; }\n"
+  },
+  {
+    "id": "1046",
+    "code1": "catch ( HeadlessException ex ) { checkHeadless ( false ) ; } catch ( UnsupportedOperationException ex ) { checkSupported ( false ) ; }\n",
+    "code2": "catch ( RuntimeException re ) { TransformerException te = new TransformerException ( re ) ; te . setLocator ( t ) ; throw te ; }\n"
+  },
+  {
+    "id": "1047",
+    "code1": "catch ( Exception e ) { e . printStackTrace ( ) ; }\n",
+    "code2": "catch ( Exception e ) { System . out . println (  \" Caught:  \"  + e ) ; e . printStackTrace ( ) ; }\n"
+  },
+  {
+    "id": "1048",
+    "code1": "catch ( NumberFormatException e ) { throw new IllegalArgumentException ( \" Invalid port number: \" + port ) ; }\n",
+    "code2": "catch ( NumberFormatException e ) { this . messagePart = 0 ; }\n"
+  },
+  {
+    "id": "1049",
+    "code1": "catch ( Exception exception ) { log . error ( exception ,  \" Error reading jmx records \"  ) ; }\n",
+    "code2": "catch ( InterruptedException ex ) { fail (  \" Interrupted ex \"  ) ; }\n"
+  },
+  {
+    "id": "1050",
+    "code1": "catch ( InterruptedException ie ) { System . out . println (  \" PESKY INTERRUPTED? \"  ) ; }\n",
+    "code2": "catch ( UnsupportedEncodingException e ) { e . printStackTrace ( ) ; }\n"
+  },
+  {
+    "id": "1051",
+    "code1": "catch ( Exception ex ) { throw new <unk> ( \" <unk> \" , ex ) ; }\n",
+    "code2": "catch ( Exception e ) { Assert . fail (  \" got exception from query \"  , e ) ; }\n"
+  },
+  {
+    "id": "1052",
+    "code1": "catch ( TransactionDataNotColocatedException e ) { assertTrue ( e . getCause ( ) instanceof TransactionDataNodeHasDepartedException ) ; }\n",
+    "code2": "catch ( TransactionDataNotColocatedException e ) { mgr . rollback ( ) ; }\n"
+  },
+  {
+    "id": "1053",
+    "code1": "catch ( IOException e ) { throw new RuntimeException ( e ) ; }\n",
+    "code2": "catch ( IOException e ) { throw new OsmRuntimeException (  \" Unable to write XML output to file. \"  , e ) ; }\n"
+  },
+  {
+    "id": "1054",
+    "code1": "catch ( Exception e ) { e . printStackTrace ( ) ; }\n",
+    "code2": "catch ( Exception exception ) { throwables . add ( exception ) ; }\n"
+  },
+  {
+    "id": "1055",
+    "code1": "catch ( RejectedExecutionException e ) { Log . warn ( e ) ; return false ; }\n",
+    "code2": "catch ( Exception e ) { fail (  \" Unexpected exception \"  + e . getMessage ( ) ) ; }\n"
+  },
+  {
+    "id": "1056",
+    "code1": "catch ( Exception e ) { printException ( e , LogLevel . HIGH ) ; return null ; }\n",
+    "code2": "catch ( UnsupportedEncodingException e ) { fail ( e . getMessage ( ) ) ; return  \"  \"  ; }\n"
+  },
+  {
+    "id": "1057",
+    "code1": "catch ( IOException ex ) { Exceptions . printStackTrace ( ex ) ; }\n",
+    "code2": "catch ( Exception e ) { System . err . println (  \" Exception occured:  \"  + e ) ; }\n"
+  },
+  {
+    "id": "1058",
+    "code1": "catch ( UnsupportedEncodingException e ) { throw new RuntimeException ( e ) ; }\n",
+    "code2": "catch ( WindowsException x ) { x . rethrowAsIOException ( path ) ; }\n"
+  },
+  {
+    "id": "1059",
+    "code1": "catch ( Exception e ) { e . printStackTrace ( ) ; }\n",
+    "code2": "catch ( InterruptedException e ) { return ; }\n"
+  },
+  {
+    "id": "1060",
+    "code1": "catch ( Throwable throwable ) { throw new BladeException ( throwable ) ; }\n",
+    "code2": "catch ( Throwable t ) { throw rethrow ( t ) ; }\n"
+  },
+  {
+    "id": "1061",
+    "code1": "catch ( InterruptedException e ) { break ; }\n",
+    "code2": "catch ( InterruptedException ex ) { ex . printStackTrace ( ) ; }\n"
+  },
+  {
+    "id": "1062",
+    "code1": "catch ( Exception e ) { e . printStackTrace ( ) ; }\n",
+    "code2": "catch ( Exception e ) { s_classLoader = null ; }\n"
+  },
+  {
+    "id": "1063",
+    "code1": "catch ( IOException e ) { e . printStackTrace ( ) ; }\n",
+    "code2": "catch ( Throwable t ) { t . printStackTrace ( testRunnerOut ) ; }\n"
+  },
+  {
+    "id": "1064",
+    "code1": "catch ( Exception e ) { surplus . add ( row ) ; }\n",
+    "code2": "catch ( Exception ex ) { ex . printStackTrace ( ) ; }\n"
+  },
+  {
+    "id": "1065",
+    "code1": "catch ( Exception e ) { e . printStackTrace ( ) ; }\n",
+    "code2": "catch ( Exception e ) { Arrays . fill ( margin , 0 ) ; }\n"
+  },
+  {
+    "id": "1066",
+    "code1": "catch ( RuntimeException TlsFatalAlert fatalAlert { abortServerHandshake ( state , recordLayer , fatalAlert ) ; throw fatalAlert ; } catch ( IOException e ) { abortClientHandshake ( state , recordLayer , AlertDescription . internal_error ) ; throw new RuntimeException ( ExceptionMessage . <unk> . getMessage ( <unk> ) , e ) ; }\n",
+    "code2": "catch ( TlsFatalAlert fatalAlert ) { abortServerHandshake ( state , recordLayer , fatalAlert . getAlertDescription ( ) ) ; throw fatalAlert ; } catch ( IOException e ) { abortServerHandshake ( state , recordLayer , AlertDescription . internal_error ) ; throw e ; } catch ( RuntimeException e ) { abortServerHandshake ( state , recordLayer , AlertDescription . internal_error ) ; throw new TlsFatalAlert ( AlertDescription . internal_error , e ) ; }\n"
+  },
+  {
+    "id": "1067",
+    "code1": "catch ( Exception e ) { log . error ( \" Error cleaning up \" , e ) ; }\n",
+    "code2": "catch ( DBException e ) { log . error ( e ) ; }\n"
+  },
+  {
+    "id": "1068",
+    "code1": "catch ( Throwable e ) { log . error ( \" Error transforming user \" , e ) ; }\n",
+    "code2": "catch ( Exception e ) { log . error (  \" Error checking SQL file \"  , e ) ; }\n"
+  },
+  {
+    "id": "1069",
+    "code1": "catch ( IndexOutOfBoundsException e ) { throw new XmlPullParserException ( e ) ; }\n",
+    "code2": "catch ( org . xmlpull . v1 . XmlPullParserException e ) { throw new XmlPullParserException ( e ) ; }\n"
+  },
+  {
+    "id": "1070",
+    "code1": "catch ( MetaException o1 ) { result . o1 = o1 ; }\n",
+    "code2": "catch ( NotAliveException e ) { result . e = e ; }\n"
+  },
+  {
+    "id": "1071",
+    "code1": "catch ( IOException e ) { Log . e ( \" <unk> \" , \" There was an error closing the InputStream \" , e ) ; }\n",
+    "code2": "catch ( IOException e ) { Log . e (  \" AppUpdater \"  ,  \" Error closing input stream \"  , e ) ; }\n"
+  },
+  {
+    "id": "1072",
+    "code1": "catch ( JSONException | URISyntaxException e ) { Log . e ( TAG , \" Exception loading shortcut to add: \" + e ) ; }\n",
+    "code2": "catch ( JSONException | URISyntaxException e ) { Log . d ( TAG ,  \" Exception reading shortcut to add:  \"  + e ) ; newStringsIter . remove ( ) ; }\n"
+  },
+  {
+    "id": "1073",
+    "code1": "catch ( Throwable throwable ) { logger . error ( \" Error when fetching rules \" , throwable ) ; return Result . ofFail ( - 1 , throwable . getMessage ( ) ) ; }\n",
+    "code2": "catch ( Throwable throwable ) { logger . error (  \" queryApps error: \"  , throwable ) ; return Result . ofThrowable ( - 1 , throwable ) ; }\n"
+  },
+  {
+    "id": "1074",
+    "code1": "catch ( Exception ex ) { System . out . println ( ex . getLocalizedMessage ( ) ) ; }\n",
+    "code2": "catch ( Exception ex ) { throw new Exception ( ex . getLocalizedMessage ( ) , ex ) ; }\n"
+  },
+  {
+    "id": "1075",
+    "code1": "catch ( IllegalStateException e ) { Log . e ( TAG , \" Dead object in <unk> \" + e ) ; }\n",
+    "code2": "catch ( RemoteException e ) { Log . e ( TAG ,  \" Dead object in setMode \"  , e ) ; }\n"
+  },
+  {
+    "id": "1076",
+    "code1": "catch ( Throwable ex ) { throw new AssertionError ( baseUrl + source . getCharContent ( true ) ) ; }\n",
+    "code2": "catch ( Throwable ex ) { throw new AssertionError ( CompilationErrorMessage + source . getCharContent ( true ) ) ; }\n"
+  },
+  {
+    "id": "1077",
+    "code1": "catch ( IllegalArgumentException e ) { logger . warn ( \" bindingConfig is invalid (item= \" + item + \" ) -> processing bindingConfig aborted! \" ) ; }\n",
+    "code2": "catch ( ArrayIndexOutOfBoundsException e ) { logger . warn (  \" bindingConfig is invalid (item= \"  + item +  \" ) -> processing bindingConfig aborted! \"  ) ; }\n"
+  },
+  {
+    "id": "1078",
+    "code1": "catch ( Exception ex ) { ex . printStackTrace ( ) ; fail ( \" Failed to get disk on disk \" ) ; }\n",
+    "code2": "catch ( Exception ex ) { ex . printStackTrace ( ) ; fail (  \" Failed to get the value on disk \"  ) ; }\n"
+  },
+  {
+    "id": "1079",
+    "code1": "catch ( SQLException sqle ) { LOG . info ( \" Failed to store \" + historyEvent . getEventType ( ) + \" for job \" + historyEvent . getJobId ( ) + \" into \" + JOB_TABLE , sqle ) ; }\n",
+    "code2": "catch ( SQLException sqle ) { LOG . info (  \" Failed to store  \"  + historyEvent . getEventType ( ) +  \"  for job  \"  + historyEvent . getJobId ( ) +  \"  into  \"  + JOB_TABLE , sqle ) ; }\n"
+  },
+  {
+    "id": "1080",
+    "code1": "catch ( NotFoundException e ) { assertTextPresent ( \" caseDefinitionId is null \" , e . getMessage ( ) ) ; }\n",
+    "code2": "catch ( NotValidException e ) { assertTextPresent (  \" caseDefinitionId is null \"  , e . getMessage ( ) ) ; }\n"
+  },
+  {
+    "id": "1081",
+    "code1": "catch ( Exception e ) { e . printStackTrace ( ) ; }\n",
+    "code2": "catch ( IOException e ) { e . printStackTrace ( ) ; }\n"
+  },
+  {
+    "id": "1082",
+    "code1": "catch ( Exception e ) { fail ( \" error setting up keys - \" + e . toString ( ) ) ; return ; }\n",
+    "code2": "catch ( Exception e ) { fail (  \" error setting up keys -  \"  + e . toString ( ) ) ; return ; }\n"
+  },
+  {
+    "id": "1083",
+    "code1": "catch ( Exception e ) { throw ExceptionFactory . wrapException ( \" Error querying database. Cause: \" + e , e ) ; }\n",
+    "code2": "catch ( Exception e ) { throw ExceptionFactory . wrapException (  \" Error querying database. Cause:  \"  + e , e ) ; }\n"
+  },
+  {
+    "id": "1084",
+    "code1": "catch ( Exception ex ) { throw new RuntimeException ( \" Exception while creating UI \" ) ; }\n",
+    "code2": "catch ( Exception ex ) { throw new RuntimeException (  \" Exception while creating UI \"  ) ; }\n"
+  },
+  {
+    "id": "1085",
+    "code1": "catch ( Failure e ) { log . display ( \" Failed to finally disconnect debuggee:\\n\\t \" + e . getMessage ( ) ) ; }\n",
+    "code2": "catch ( Failure e ) { log . display (  \" Failed to finally disconnect debuggee:\\n\\t \"  + e . getMessage ( ) ) ; }\n"
+  },
+  {
+    "id": "1086",
+    "code1": "catch ( Exception e ) { e . printStackTrace ( ) ; fail ( \" SavedTableConverter.convert should not have thrown here \" ) ; return ; }\n",
+    "code2": "catch ( Exception e ) { e . printStackTrace ( ) ; fail (  \" SavedTableConverter.convert should not have thrown here \"  ) ; return ; }\n"
+  },
+  {
+    "id": "1087",
+    "code1": "catch ( org . apache . thrift . TException te ) { throw new java . io . IOException ( te ) ; }\n",
+    "code2": "catch ( org . apache . thrift . TException te ) { throw new java . io . IOException ( te ) ; }\n"
+  },
+  {
+    "id": "1088",
+    "code1": "catch ( RuntimeException e ) { caughtException = true ; }\n",
+    "code2": "catch ( RuntimeException e ) { caughtException = true ; }\n"
+  },
+  {
+    "id": "1089",
+    "code1": "catch ( GroovyRuntimeException gre ) { th = ScriptBytecodeAdapter . unwrap ( gre ) ; } catch ( Throwable e ) { th = e ; }\n",
+    "code2": "catch ( GroovyRuntimeException gre ) { th = ScriptBytecodeAdapter . unwrap ( gre ) ; } catch ( Throwable e ) { th = e ; }\n"
+  },
+  {
+    "id": "1090",
+    "code1": "catch ( Throwable t ) { failure = t ; }\n",
+    "code2": "catch ( Throwable t ) { failure = t ; }\n"
+  },
+  {
+    "id": "1091",
+    "code1": "catch ( IOException ioe ) { Exceptions . printStackTrace ( ioe ) ; }\n",
+    "code2": "catch ( IOException ioe ) { Exceptions . printStackTrace ( ioe ) ; }\n"
+  },
+  {
+    "id": "1092",
+    "code1": "catch ( Exception e ) { e . printStackTrace ( ) ; fail ( q . getQueryString ( ) ) ; }\n",
+    "code2": "catch ( Exception e ) { e . printStackTrace ( ) ; fail ( q . getQueryString ( ) ) ; }\n"
+  },
+  {
+    "id": "1093",
+    "code1": "catch ( UnknownHostException e ) { throw new AssertionError ( ) ; }\n",
+    "code2": "catch ( UnknownHostException e ) { throw new AssertionError ( ) ; }\n"
+  },
+  {
+    "id": "1094",
+    "code1": "catch ( IabException ex ) { result = ex . getResult ( ) ; }\n",
+    "code2": "catch ( IabException ex ) { result = ex . getResult ( ) ; }\n"
+  },
+  {
+    "id": "1095",
+    "code1": "catch ( InterruptedException e ) { throw new RuntimeException ( e ) ; }\n",
+    "code2": "catch ( InterruptedException e ) { throw new RuntimeException ( e ) ; }\n"
+  },
+  {
+    "id": "1096",
+    "code1": "catch ( final ScriptException se ) { se . printStackTrace ( ) ; fail ( se . getMessage ( ) ) ; }\n",
+    "code2": "catch ( final ScriptException se ) { se . printStackTrace ( ) ; fail ( se . getMessage ( ) ) ; }\n"
+  },
+  {
+    "id": "1097",
+    "code1": "catch ( IllegalArgumentException e ) { form . dispatchErrorOccurredEvent ( this , functionName , ErrorMessages . ERROR_EV3_ILLEGAL_ARGUMENT , functionName ) ; }\n",
+    "code2": "catch ( IllegalArgumentException e ) { form . dispatchErrorOccurredEvent ( this , functionName , ErrorMessages . ERROR_EV3_ILLEGAL_ARGUMENT , functionName ) ; }\n"
+  },
+  {
+    "id": "1098",
+    "code1": "catch ( Exception e ) { throw new IOException ( e ) ; }\n",
+    "code2": "catch ( Exception e ) { throw new IOException ( e ) ; }\n"
+  },
+  {
+    "id": "1099",
+    "code1": "catch ( Throwable ex ) { Util . bug ( null , ex ) ; }\n",
+    "code2": "catch ( Throwable ex ) { Util . bug ( null , ex ) ; }\n"
+  },
+  {
+    "id": "2000",
+    "code1": "public int end() {return end(0);}\n",
+    "code2": "public void traverse(CellHandler handler) {int firstRow = range.getFirstRow();int lastRow = range.getLastRow();int firstColumn = range.getFirstColumn();int lastColumn = range.getLastColumn();final int width = lastColumn - firstColumn + 1;SimpleCellWalkContext ctx = new SimpleCellWalkContext();Row currentRow = null;Cell currentCell = null;for (ctx.rowNumber = firstRow; ctx.rowNumber <= lastRow; ++ctx.rowNumber) {currentRow = sheet.getRow(ctx.rowNumber);if (currentRow == null) {continue;}for (ctx.colNumber = firstColumn; ctx.colNumber <= lastColumn; ++ctx.colNumber) {currentCell = currentRow.getCell(ctx.colNumber);if (currentCell == null) {continue;}if (isEmpty(currentCell) && !traverseEmptyCells) {continue;}long rowSize = ArithmeticUtils.mulAndCheck((long)ArithmeticUtils.subAndCheck(ctx.rowNumber, firstRow), (long)width);ctx.ordinalNumber = ArithmeticUtils.addAndCheck(rowSize, (ctx.colNumber - firstColumn + 1));handler.onCell(currentCell, ctx);}}}\n"
+  },
+  {
+    "id": "2001",
+    "code1": "public String getPath() {return pathStr;}\n",
+    "code2": "public static double devsq(double[] v) {double r = Double.NaN;if (v!=null && v.length >= 1) {double m = 0;double s = 0;int n = v.length;for (int i=0; i<n; i++) {s += v[i];}m = s / n;s = 0;for (int i=0; i<n; i++) {s += (v[i]- m) * (v[i] - m);}r = (n == 1)? 0: s;}return r;}\n"
+  },
+  {
+    "id": "2002",
+    "code1": "public void traverse(CellHandler handler) {int firstRow = range.getFirstRow();int lastRow = range.getLastRow();int firstColumn = range.getFirstColumn();int lastColumn = range.getLastColumn();final int width = lastColumn - firstColumn + 1;SimpleCellWalkContext ctx = new SimpleCellWalkContext();Row currentRow = null;Cell currentCell = null;for (ctx.rowNumber = firstRow; ctx.rowNumber <= lastRow; ++ctx.rowNumber) {currentRow = sheet.getRow(ctx.rowNumber);if (currentRow == null) {continue;}for (ctx.colNumber = firstColumn; ctx.colNumber <= lastColumn; ++ctx.colNumber) {currentCell = currentRow.getCell(ctx.colNumber);if (currentCell == null) {continue;}if (isEmpty(currentCell) && !traverseEmptyCells) {continue;}long rowSize = ArithmeticUtils.mulAndCheck((long)ArithmeticUtils.subAndCheck(ctx.rowNumber, firstRow), (long)width);ctx.ordinalNumber = ArithmeticUtils.addAndCheck(rowSize, (ctx.colNumber - firstColumn + 1));handler.onCell(currentCell, ctx);}}}\n",
+    "code2": "public int getReadIndex() {return pos;}\n"
+  },
+  {
+    "id": "2003",
+    "code1": "public EscherGraphics(HSSFShapeGroup escherGroup, HSSFWorkbook workbook, Color forecolor, float verticalPointsPerPixel ){this.escherGroup = escherGroup;this.workbook = workbook;this.verticalPointsPerPixel = verticalPointsPerPixel;this.verticalPixelsPerPoint = 1 / verticalPointsPerPixel;this.font = new Font(\"Arial\", 0, 10);this.foreground = forecolor;}\n",
+    "code2": "public String pattern() {return patternText;}\n"
+  },
+  {
+    "id": "2004",
+    "code1": "public DescribeNetworkInterfacesResult describeNetworkInterfaces(DescribeNetworkInterfacesRequest request) {request = beforeClientExecution(request);return executeDescribeNetworkInterfaces(request);}\n",
+    "code2": "public int serialize( int offset, byte[] data, EscherSerializationListener listener ){listener.beforeRecordSerialize( offset, getRecordId(), this );LittleEndian.putShort( data, offset, getOptions() );LittleEndian.putShort( data, offset + 2, getRecordId() );LittleEndian.putInt( data, offset + 4, 8 );LittleEndian.putInt( data, offset + 8, field_1_numShapes );LittleEndian.putInt( data, offset + 12, field_2_lastMSOSPID );listener.afterRecordSerialize( offset + 16, getRecordId(), getRecordSize(), this );return getRecordSize();}\n"
+  },
+  {
+    "id": "2005",
+    "code1": "public final int compareTo(int[] bs, int p) {int cmp;cmp = NB.compareUInt32(w1, bs[p]);if (cmp != 0)return cmp;cmp = NB.compareUInt32(w2, bs[p + 1]);if (cmp != 0)return cmp;cmp = NB.compareUInt32(w3, bs[p + 2]);if (cmp != 0)return cmp;cmp = NB.compareUInt32(w4, bs[p + 3]);if (cmp != 0)return cmp;return NB.compareUInt32(w5, bs[p + 4]);}\n",
+    "code2": "public void removeName(int index){names.remove(index);workbook.removeName(index);}\n"
+  },
+  {
+    "id": "2006",
+    "code1": "public FileResolver() {exports = new ConcurrentHashMap<>();exportBase = new CopyOnWriteArrayList<>();}\n",
+    "code2": "public ValueEval getRef3DEval(Ref3DPxg rptg) {SheetRangeEvaluator sre = createExternSheetRefEvaluator(rptg.getSheetName(), rptg.getLastSheetName(), rptg.getExternalWorkbookNumber());return new LazyRefEval(rptg.getRow(), rptg.getColumn(), sre);}\n"
+  },
+  {
+    "id": "2007",
+    "code1": "public final boolean incrementToken() {return false;}\n",
+    "code2": "public void serialize(LittleEndianOutput out) {out.writeShort(main + 1);out.writeShort(subFrom);out.writeShort(subTo);}\n"
+  },
+  {
+    "id": "2008",
+    "code1": "public SimpleQQParser(String qqNames[], String indexField) {this.qqNames = qqNames;this.indexField = indexField;}\n",
+    "code2": "public DBCluster promoteReadReplicaDBCluster(PromoteReadReplicaDBClusterRequest request) {request = beforeClientExecution(request);return executePromoteReadReplicaDBCluster(request);}\n"
+  },
+  {
+    "id": "2009",
+    "code1": "final public Token getToken(int index) {Token t = jj_lookingAhead ? jj_scanpos : token;for (int i = 0; i < index; i++) {if (t.next != null) t = t.next;else t = t.next = token_source.getNextToken();}return t;}\n",
+    "code2": "public String toString() {StringBuilder sb = new StringBuilder();sb.append(getClass().getName()).append(\" [ARRAY]\\n\");sb.append(\" range=\").append(getRange()).append(\"\\n\");sb.append(\" options=\").append(HexDump.shortToHex(_options)).append(\"\\n\");sb.append(\" notUsed=\").append(HexDump.intToHex(_field3notUsed)).append(\"\\n\");sb.append(\" formula:\").append(\"\\n\");Ptg[] ptgs = _formula.getTokens();for (int i = 0; i < ptgs.length; i++) {Ptg ptg = ptgs[i];sb.append(ptg).append(ptg.getRVAType()).append(\"\\n\");}sb.append(\"]\");return sb.toString();}\n"
+  },
+  {
+    "id": "2010",
+    "code1": "public String toString() {StringBuilder buffer = new StringBuilder();buffer.append(\"[SERIESLIST]\\n\");buffer.append(\"    .seriesNumbers= \").append(\" (\").append( Arrays.toString(getSeriesNumbers()) ).append(\" )\");buffer.append(\"\\n\");buffer.append(\"[/SERIESLIST]\\n\");return buffer.toString();}\n",
+    "code2": "public QueryConfigHandler getQueryConfigHandler() {return this.queryConfig;}\n"
+  },
+  {
+    "id": "2011",
+    "code1": "public CreateDataSourceFromRedshiftResult createDataSourceFromRedshift(CreateDataSourceFromRedshiftRequest request) {request = beforeClientExecution(request);return executeCreateDataSourceFromRedshift(request);}\n",
+    "code2": "public void clearDFA() {for (int d = 0; d < decisionToDFA.length; d++) {decisionToDFA[d] = new DFA(atn.getDecisionState(d), d);}}\n"
+  },
+  {
+    "id": "2012",
+    "code1": "public AllocateHostedConnectionResult allocateHostedConnection(AllocateHostedConnectionRequest request) {request = beforeClientExecution(request);return executeAllocateHostedConnection(request);}\n",
+    "code2": "public int getBeginIndex() {return start;}\n"
+  },
+  {
+    "id": "2013",
+    "code1": "public ParseTreePattern compileParseTreePattern(String pattern, int patternRuleIndex) {if ( getTokenStream()!=null ) {TokenSource tokenSource = getTokenStream().getTokenSource();if ( tokenSource instanceof Lexer ) {Lexer lexer = (Lexer)tokenSource;return compileParseTreePattern(pattern, patternRuleIndex, lexer);}}throw new UnsupportedOperationException(\"Parser can't discover a lexer to use\");}\n",
+    "code2": "public BacktrackDBClusterResult backtrackDBCluster(BacktrackDBClusterRequest request) {request = beforeClientExecution(request);return executeBacktrackDBCluster(request);}\n"
+  },
+  {
+    "id": "2014",
+    "code1": "public TerminateClientVpnConnectionsResult terminateClientVpnConnections(TerminateClientVpnConnectionsRequest request) {request = beforeClientExecution(request);return executeTerminateClientVpnConnections(request);}\n",
+    "code2": "public ReceiveMessageRequest(String queueUrl) {setQueueUrl(queueUrl);}\n"
+  },
+  {
+    "id": "2015",
+    "code1": "public ListIngestionsResult listIngestions(ListIngestionsRequest request) {request = beforeClientExecution(request);return executeListIngestions(request);}\n",
+    "code2": "public QueryParserTokenManager(CharStream stream, int lexState){this(stream);SwitchTo(lexState);}\n"
+  },
+  {
+    "id": "2016",
+    "code1": "public GetCelebrityRecognitionResult getCelebrityRecognition(GetCelebrityRecognitionRequest request) {request = beforeClientExecution(request);return executeGetCelebrityRecognition(request);}\n",
+    "code2": "public CreateQueueRequest(String queueName) {setQueueName(queueName);}\n"
+  },
+  {
+    "id": "2017",
+    "code1": "public ValueEval evaluate(ValueEval[] operands, int srcRow, int srcCol) {throw new NotImplementedFunctionException(_functionName);}\n",
+    "code2": "public void serialize(LittleEndianOutput out) {out.writeShort((short)field_1_number_crn_records);out.writeShort((short)field_2_sheet_table_index);}\n"
+  },
+  {
+    "id": "2018",
+    "code1": "public final int[] getCharIntervals() {return points.clone();}\n",
+    "code2": "public long ramBytesUsed() {return values.ramBytesUsed()+ super.ramBytesUsed()+ Long.BYTES+ RamUsageEstimator.NUM_BYTES_OBJECT_REF;}\n"
+  },
+  {
+    "id": "2019",
+    "code1": "public DeleteTransitGatewayResult deleteTransitGateway(DeleteTransitGatewayRequest request) {request = beforeClientExecution(request);return executeDeleteTransitGateway(request);}\n",
+    "code2": "public static byte[] grow(byte[] array, int minSize) {assert minSize >= 0: \"size must be positive (got \" + minSize + \"): likely integer overflow?\";if (array.length < minSize) {return growExact(array, oversize(minSize, Byte.BYTES));} elsereturn array;}\n"
+  },
+  {
+    "id": "2020",
+    "code1": "public static void writeUnicodeStringFlagAndData(LittleEndianOutput out, String value) {boolean is16Bit = hasMultibyte(value);out.writeByte(is16Bit ? 0x01 : 0x00);if (is16Bit) {putUnicodeLE(value, out);} else {putCompressedUnicode(value, out);}}\n",
+    "code2": "public AuthorizeSecurityGroupIngressResult authorizeSecurityGroupIngress(AuthorizeSecurityGroupIngressRequest request) {request = beforeClientExecution(request);return executeAuthorizeSecurityGroupIngress(request);}\n"
+  },
+  {
+    "id": "2021",
+    "code1": "public FeatRecord(RecordInputStream in) {futureHeader = new FtrHeader(in);isf_sharedFeatureType = in.readShort();reserved1 = in.readByte();reserved2 = in.readInt();int cref = in.readUShort();cbFeatData = in.readInt();reserved3 = in.readShort();cellRefs = new CellRangeAddress[cref];for(int i=0; i<cellRefs.length; i++) {cellRefs[i] = new CellRangeAddress(in);}switch(isf_sharedFeatureType) {case FeatHdrRecord.SHAREDFEATURES_ISFPROTECTION:sharedFeature = new FeatProtection(in);break;case FeatHdrRecord.SHAREDFEATURES_ISFFEC2:sharedFeature = new FeatFormulaErr2(in);break;case FeatHdrRecord.SHAREDFEATURES_ISFFACTOID:sharedFeature = new FeatSmartTag(in);break;default:logger.log( POILogger.ERROR, \"Unknown Shared Feature \" + isf_sharedFeatureType + \" found!\");}}\n",
+    "code2": "public RevCommit tryFastForward(RevCommit newCommit) throws IOException,GitAPIException {Ref head = getHead();ObjectId headId = head.getObjectId();if (headId == null)throw new RefNotFoundException(MessageFormat.format(JGitText.get().refNotResolved, Constants.HEAD));RevCommit headCommit = walk.lookupCommit(headId);if (walk.isMergedInto(newCommit, headCommit))return newCommit;String headName = getHeadName(head);return tryFastForward(headName, headCommit, newCommit);}\n"
+  },
+  {
+    "id": "2022",
+    "code1": "public Filter(String name) {setName(name);}\n",
+    "code2": "public DoubleBuffer put(double c) {throw new ReadOnlyBufferException();}\n"
+  },
+  {
+    "id": "2023",
+    "code1": "public ListComponentsResult listComponents(ListComponentsRequest request) {request = beforeClientExecution(request);return executeListComponents(request);}\n",
+    "code2": "public ActivatePhotosRequest() {super(\"CloudPhoto\", \"2017-07-11\", \"ActivatePhotos\", \"cloudphoto\");setProtocol(ProtocolType.HTTPS);}\n"
+  },
+  {
+    "id": "2024",
+    "code1": "public GroupingSearch disableCaching() {this.maxCacheRAMMB = null;this.maxDocsToCache = null;return this;}\n",
+    "code2": "public static int idealByteArraySize(int need) {for (int i = 4; i < 32; i++)if (need <= (1 << i) - 12)return (1 << i) - 12;return need;}\n"
+  },
+  {
+    "id": "2025",
+    "code1": "public synchronized void setMultiValued(String dimName, boolean v) {DimConfig ft = fieldTypes.get(dimName);if (ft == null) {ft = new DimConfig();fieldTypes.put(dimName, ft);}ft.multiValued = v;}\n",
+    "code2": "public int getCellsVal() {Iterator<Character> i = cells.keySet().iterator();int size = 0;for (; i.hasNext();) {Character c = i.next();Cell e = at(c);if (e.cmd >= 0) {size++;}}return size;}\n"
+  },
+  {
+    "id": "2026",
+    "code1": "public ListTemplatesResult listTemplates(ListTemplatesRequest request) {request = beforeClientExecution(request);return executeListTemplates(request);}\n",
+    "code2": "public TimerThread(long resolution, Counter counter) {super(THREAD_NAME);this.resolution = resolution;this.counter = counter;this.setDaemon(true);}\n"
+  },
+  {
+    "id": "2027",
+    "code1": "public SpanNearQuery build() {return new SpanNearQuery(clauses.toArray(new SpanQuery[clauses.size()]), slop, ordered);}\n",
+    "code2": "public boolean isSubTotal(int rowIndex, int columnIndex) {return false;}\n"
+  },
+  {
+    "id": "2028",
+    "code1": "public PostingsEnum reset(int[] postings) {this.postings = postings;upto = -2;freq = 0;return this;}\n",
+    "code2": "public final boolean hasAll(RevFlagSet set) {return (flags & set.mask) == set.mask;}\n"
+  },
+  {
+    "id": "2029",
+    "code1": "public DeleteDBSnapshotRequest(String dBSnapshotIdentifier) {setDBSnapshotIdentifier(dBSnapshotIdentifier);}\n",
+    "code2": "public final ParserExtension getExtension(String key) {return this.extensions.get(key);}\n"
+  },
+  {
+    "id": "2030",
+    "code1": "public RevFilter clone() {return new Binary(a.clone(), b.clone());}\n",
+    "code2": "public boolean equals( Object o ) {return o instanceof ArmenianStemmer;}\n"
+  },
+  {
+    "id": "2031",
+    "code1": "public DescribeLogPatternResult describeLogPattern(DescribeLogPatternRequest request) {request = beforeClientExecution(request);return executeDescribeLogPattern(request);}\n",
+    "code2": "public RegisterTransitGatewayMulticastGroupMembersResult registerTransitGatewayMulticastGroupMembers(RegisterTransitGatewayMulticastGroupMembersRequest request) {request = beforeClientExecution(request);return executeRegisterTransitGatewayMulticastGroupMembers(request);}\n"
+  },
+  {
+    "id": "2032",
+    "code1": "public String toString(){StringBuilder buffer = new StringBuilder();buffer.append(\"[CHART]\\n\");buffer.append(\"    .x           = \").append(\"0x\").append(HexDump.toHex(  getX ())).append(\" (\").append( getX() ).append(\" )\");buffer.append(System.getProperty(\"line.separator\"));buffer.append(\"    .y                    = \").append(\"0x\").append(HexDump.toHex(  getY ())).append(\" (\").append( getY() ).append(\" )\");buffer.append(System.getProperty(\"line.separator\"));buffer.append(\"     .width             = \").append(\"0x\").append(HexDump.toHex(  getWidth() ).append(\" )\");buffer.append(System.getProperty(\" (\").append( getWidth() ).append(\" )\");buffer.append(Hex\n",
+    "code2": "public String toString() {StringBuilder sb = new StringBuilder();sb.append(\"[CHART]\\n\");sb.append(\"    .x     = \").append(getX()).append('\\n');sb.append(\"    .y     = \").append(getY()).append('\\n');sb.append(\"    .width = \").append(getWidth()).append('\\n');sb.append(\"    .height= \").append(getHeight()).append('\\n');sb.append(\"[/CHART]\\n\");return sb.toString();}\n"
+  },
+  {
+    "id": "2033",
+    "code1": "public AbstractEscherHolderRecord clone() {return copy();}\n",
+    "code2": "public MergeScheduler clone() {return this;}\n"
+  },
+  {
+    "id": "2034",
+    "code1": "public DescribeVpcEndpointServicesResult describeVpcEndpointServices(DescribeVpcEndpointServicesRequest request) {request = beforeClientExecution(request);return executeDescribeVpcEndpointServices(request);}\n",
+    "code2": "public EnableLoggingResult enableLogging(EnableLoggingRequest request) {request = beforeClientExecution(request);return executeEnableLogging(request);}\n"
+  },
+  {
+    "id": "2035",
+    "code1": "public STSAssumeConnectionTimeout(int milliseconds) {connectionTimeoutInMilliseconds = milliseconds;}\n",
+    "code2": "public ECSMetadataServiceCredentialsFetcher withConnectionTimeout(int milliseconds) {this.connectionTimeoutInMilliseconds = milliseconds;return this;}\n"
+  },
+  {
+    "id": "2036",
+    "code1": "public boolean equals(final Object o) {if (!(o instanceof Property)) {return false;}final Property p = (Property) o;final Object pValue = p.getValue();final long pId = p.getID();if (id != pId || (id != 0 && !type == null) {return false;}if (value == null && pValue == null) {return false;}if (value == null || pValue == null) {return false;}Class = value.getClass();Class<? extends MutableFrom(pValueClass)) && !(pValueClass.isAssignableFrom(valueClass)) return false;}if (value instanceof byte[0]) {return Arrays.equals((byte[]) value, (byte[]) pValue);}return value.equals(pValue);}\n",
+    "code2": "public boolean equals(final Object o) {if (!(o instanceof Property)) {return false;}final Property p = (Property) o;final Object pValue = p.getValue();final long pId = p.getID();if (id != pId || (id != 0 && !typesAreEqual(type, p.getType()))) {return false;}if (value == null && pValue == null) {return true;}if (value == null || pValue == null) {return false;}final Class<?> valueClass = value.getClass();final Class<?> pValueClass = pValue.getClass();if (!(valueClass.isAssignableFrom(pValueClass)) &&!(pValueClass.isAssignableFrom(valueClass))) {return false;}if (value instanceof byte[]) {byte[] thisVal = (byte[]) value, otherVal = (byte[]) pValue;int len = unpaddedLength(thisVal);if (len != unpaddedLength(otherVal)) {return false;}for (int i=0; i<len; i++) {if (thisVal[i] != otherVal[i]) {return false;}}return true;}return value.equals(pValue);}\n"
+  },
+  {
+    "id": "2037",
+    "code1": "public StringBuffer append(int i) {IntegralToString.appendInt(this, i);return this;}\n",
+    "code2": "public StringBuffer append(double d) {RealToString.getInstance().appendDouble(this, d);return this;}\n"
+  },
+  {
+    "id": "2038",
+    "code1": "public static short lookupIndexByName(String name) {FunctionMetadata fd = getInstance().getFunctionByNameInternal(name);if (fd == null) {return -1;}return (short) fd.getIndex();}\n",
+    "code2": "public static short lookupIndexByName(String name) {FunctionMetadata fd = getInstance().getFunctionByNameInternal(name);if (fd == null) {fd = getInstanceCetab().getFunctionByNameInternal(name);if (fd == null) {return -1;}}return (short) fd.getIndex();}\n"
+  },
+  {
+    "id": "2039",
+    "code1": "public String toString() {String coll = collectionModel.getName();if (coll != null) {return String.format(\" -> \" + getName() + \":\" + getName());} else {return String.toString();}}\n",
+    "code2": "public String toString() {String coll = collectionModel.getName();if (coll != null) {return String.format(Locale.ROOT, \"LM %s - %s\", getName(), coll);} else {return String.format(Locale.ROOT, \"LM %s\", getName());}}\n"
+  },
+  {
+    "id": "2040",
+    "code1": "public static double floor(double n, double s) {if ((n<0 && s>0) || (n>0 && s<0) {return Double.NaN;}else {f = (n == 0 || s == 0) ? 0 : Math.floor(n/s) * s;return f;}\n",
+    "code2": "public static double floor(double n, double s) {if (s==0 && n!=0) {return Double.NaN;} else {return (n==0 || s==0) ? 0 : Math.floor(n/s) * s;}}\n"
+  },
+  {
+    "id": "2041",
+    "code1": "public void setParams(String params) {super.setParams(params);String ignore;StringTokenizer st = new StringTokenizer(params, \",\");if (st.hasMoreTokens()) {culture = st.nextToken();if (st.hasMoreTokens()) {culture = st.nextToken();if (st.hasMoreTokens()) {ignore = st.next();}if (st.hasNext() ) {ignore = st.next();}}\n",
+    "code2": "public void setParams(String params) {super.setParams(params);language = country = variant = \"\";StringTokenizer st = new StringTokenizer(params, \",\");if (st.hasMoreTokens())language = st.nextToken();if (st.hasMoreTokens())country = st.nextToken();if (st.hasMoreTokens())variant = st.nextToken();}\n"
+  },
+  {
+    "id": "2042",
+    "code1": "public TokenStream create(TokenStream input) {return new HyphenatedWordsFilter(input);}\n",
+    "code2": "public HyphenatedWordsFilter create(TokenStream input) {return new HyphenatedWordsFilter(input);}\n"
+  },
+  {
+    "id": "2043",
+    "code1": "public static BufferSizeAutomatic() {final long max, total, free;final Object proc = Process.getCurrentProcess();total = proc.getVirtualMemorySize64();free = proc.getVirtualMemorySize64;free = proc.getPrivateMemorySize64();}long totalAvailableBytes = max - total + free;final long sortBufferByteSize = free / 2;final long sortBufferSizeBytes = MIN_BUFFER_SIZE_MB*MB;if (sortBufferByteSize < minBufferSizeBytes || totalAvailableBytes > 10 * minBufferSizeBytes) {if (totalAvailableBytes / 2 > minBufferSizeBytes) {sortBufferByteSize = totalAvailableBytes / 2;} else {sortBufferByteSize = Math.max(ABSOLUTE_MIN_SORT_BUFFER_SIZE, sortBufferByteSize);}}return new BufferSize(Math.min(long)Integer.MAX_VALUE, sortBufferByteSize));}\n",
+    "code2": "public static BufferSize automatic() {Runtime rt = Runtime.getRuntime();final long max = rt.maxMemory(); final long total = rt.totalMemory(); final long free = rt.freeMemory(); final long totalAvailableBytes = max - total + free;long sortBufferByteSize = free/2;final long minBufferSizeBytes = MIN_BUFFER_SIZE_MB*MB;if (sortBufferByteSize <  minBufferSizeBytes|| totalAvailableBytes > 10 * minBufferSizeBytes) { if (totalAvailableBytes/2 > minBufferSizeBytes) { sortBufferByteSize = totalAvailableBytes/2; } else {sortBufferByteSize = Math.max(ABSOLUTE_MIN_SORT_BUFFER_SIZE, sortBufferByteSize);}}return new BufferSize(Math.min((long)Integer.MAX_VALUE, sortBufferByteSize));}\n"
+  },
+  {
+    "id": "2044",
+    "code1": "public static int numNonnull(Object[] data) {int n = 0;if (data == null) {return n;}for (int o : data) {if (o != null) {n++;}}return n;}\n",
+    "code2": "public static int numNonnull(Object[] data) {int n = 0;if ( data == null ) return n;for (Object o : data) {if ( o!=null ) n++;}return n;}\n"
+  },
+  {
+    "id": "2045",
+    "code1": "public static double max(double[] values) {double max = Double.NegativeInfiniteQueries;for (double value : values) {max = Math.max(max, value);}return max;}\n",
+    "code2": "public static double max(double[] values) {double max = Double.NEGATIVE_INFINITY;for (double value : values) {max = Math.max(max, value);}return max;}\n"
+  },
+  {
+    "id": "2046",
+    "code1": "public String toString() {StringBuilder buffer = new StringBuilder();buffer.append(\"[DataSize]\\n\");buffer.append(\"    .dataSize      = \").append(getDataSize()).append(\"\\n\");buffer.append(\"    .reserved     = \").append(HexDump.toHex(reserved)).append(\"\\n\");buffer.append(\"[/RECALCID]\\n\");return buffer.toString();}\n",
+    "code2": "public String toString(){StringBuilder buffer = new StringBuilder();buffer.append(\"[FtCbls ]\").append(\"\\n\");buffer.append(\"  size     = \").append(getDataSize()).append(\"\\n\");buffer.append(\"  reserved = \").append(HexDump.toHex(reserved)).append(\"\\n\");buffer.append(\"[/FtCbls ]\").append(\"\\n\");return buffer.toString();}\n"
+  },
+  {
+    "id": "2047",
+    "code1": "public static double avedev(double[] v) {double r = 0;double m = 0;double s = 0;for (int i = 0, iSize = v.length; i < iSize; i++) {s += v[i];}m = s / v.length;s = 0;for (int i = 0, i < iSize; i++)s += Math.abs(v[i] - m);}r = s / v.length;return r;}\n",
+    "code2": "public static double avedev(double[] v) {double r = 0;double m = 0;double s = 0;for (int i=0, iSize=v.length; i<iSize; i++) {s += v[i];}m = s / v.length;s = 0;for (int i=0, iSize=v.length; i<iSize; i++) {s += Math.abs(v[i]-m);}r = s / v.length;return r;}\n"
+  },
+  {
+    "id": "2048",
+    "code1": "public String toString() {return \"<slop value='\" + getValueString() + \"'>\" + \"\\n\"+ getChild().toString() + \"\\n</slop>\";}\n",
+    "code2": "public String toString() {return \"<phraseslop value='\" + getValueString() + \"'>\" + \"\\n\"+ getChild().toString() + \"\\n</phraseslop>\";}\n"
+  },
+  {
+    "id": "2049",
+    "code1": "public String getNewPrefix() {return new.newPrefix;}\n",
+    "code2": "public String getNewPrefix() {return this.newPrefix;}\n"
+  },
+  {
+    "id": "2050",
+    "code1": "public boolean isDeltaRepresentation() {return deltaBase != null;}\n",
+    "code2": "public final boolean isDeltaRepresentation() {return deltaBase != null;}\n"
+  },
+  {
+    "id": "2051",
+    "code1": "public String toString() {StringBuilder sb = new StringBuilder(64);CellReference crA = new CellReference(_firstRowIndex, _firstColumnIndex, false, false);CellReference crB = new CellReference(_lastRowIndex, _lastColumnIndex, false, false);sb.append(\" [\").append(crA.formatAsString()).append(':').append(crB.formatAsString()).append(\"]\");return sb.toString();}\n",
+    "code2": "public String toString() {StringBuilder sb = new StringBuilder(64);CellReference crA = new CellReference(_firstRowIndex, _firstColumnIndex, false, false);CellReference crB = new CellReference(_lastRowIndex, _lastColumnIndex, false, false);sb.append(getClass().getName());sb.append(\" [\").append(crA.formatAsString()).append(':').append(crB.formatAsString()).append(\"]\");return sb.toString();}\n"
+  },
+  {
+    "id": "2052",
+    "code1": "public String toString() {StringBuilder buffer = new StringBuilder();buffer.append(\"[FILESHARING]\\n\");buffer.append(\"    .readonly      = \").append(getReadOnly()).append(\"\\n\");buffer.append(\"   .password       = \").append(Integer.toHexString(getPassword())).append(\"\\n\");buffer.append(\"   .username    = \").append(getUsername()).append(\"\\n\");buffer.append(\"[/FILESHARING]\\n\");return buffer.toString();}\n",
+    "code2": "public String toString() {StringBuilder buffer = new StringBuilder();buffer.append(\"[FILESHARING]\\n\");buffer.append(\"    .readonly       = \").append(getReadOnly() == 1 ? \"true\" : \"false\").append(\"\\n\");buffer.append(\"    .password       = \").append(Integer.toHexString(getPassword())).append(\"\\n\");buffer.append(\"    .username       = \").append(getUsername()).append(\"\\n\");buffer.append(\"[/FILESHARING]\\n\");return buffer.toString();}\n"
+  },
+  {
+    "id": "2053",
+    "code1": "public static boolean isValidSchemeChar(int index, char c) {if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))return true;if (index > 0 && ((c >= '0' && c <= '9')|| c == '+' || c == '-' || c == '.'))return true;return false;}\n",
+    "code2": "public static boolean isValidSchemeChar(int index, char c) {if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {return true;}if (index > 0 && ((c >= '0' && c <= '9') || c == '+' || c == '-' || c == '.')) {return true;}return false;}\n"
+  },
+  {
+    "id": "2054",
+    "code1": "public void resize() {resize(Double.MAX_VALUE);}\n",
+    "code2": "public void resize(){resize(Double.MAX_VALUE);}\n"
+  },
+  {
+    "id": "2055",
+    "code1": "public void close() throws IOException {if (isOpen) {isOpen = false;try {dump();} finally {try {channel.truncate(fileLength);} finally {channel.close();} finally {fos.close();}}\n",
+    "code2": "public void close() throws IOException {if (isOpen) {isOpen = false;try {dump();} finally {try {channel.truncate(fileLength);} finally {try {channel.close();} finally {fos.close();}}}}}\n"
+  },
+  {
+    "id": "2056",
+    "code1": "public void serialize(LittleEndianOutput out) {out.writeShort(field_1_row);out.writeShort(field_2_col);out.writeShort(field_3_flags);out.writeShort(field_4_shapeid);out.writeShort(field_6_author.length());out.writeByte(field_5_hasMultibyte ? 0x01 : 0x00);if (field_5_hasMultibyte) {StringUtil.putUnicodeLE(field_6_author, out);} else {StringUtil.putCompressedUnicode(field_6_author, out);}if (field_7_padding != null) {out.writeByte(getValue());}}\n",
+    "code2": "public void serialize(LittleEndianOutput out) {out.writeShort(field_1_row);out.writeShort(field_2_col);out.writeShort(field_3_flags);out.writeShort(field_4_shapeid);out.writeShort(field_6_author.length());out.writeByte(field_5_hasMultibyte ? 0x01 : 0x00);if (field_5_hasMultibyte) {StringUtil.putUnicodeLE(field_6_author, out);} else {StringUtil.putCompressedUnicode(field_6_author, out);}if (field_7_padding != null) {out.writeByte(field_7_padding.intValue());}}\n"
+  },
+  {
+    "id": "2057",
+    "code1": "public SrSynonymParser(boolean dedup, boolean expand, Analyzer analyzer) {super(dedup, analyzer);this.expand = expand;}\n",
+    "code2": "public SolrSynonymParser(boolean dedup, boolean expand, Analyzer analyzer) {super(dedup, analyzer);this.expand = expand;}\n"
+  },
+  {
+    "id": "2058",
+    "code1": "public String toString() {StringBuilder buffer = new StringBuilder();buffer.append(\"[FtCbls]\").append(\"\\n\");buffer.append(\"  size    = \").append(getDataSize()).append(\"\\n\");buffer.append(\"  reserved = \").append(HexDump.toHex(reserved)).append(\"\\n\");buffer.append(\"[/FtCbls ]\").append(\"\\n\");return buffer.toString();}\n",
+    "code2": "public String toString(){StringBuilder buffer = new StringBuilder();buffer.append(\"[FtCbls ]\").append(\"\\n\");buffer.append(\"  size     = \").append(getDataSize()).append(\"\\n\");buffer.append(\"  reserved = \").append(HexDump.toHex(reserved)).append(\"\\n\");buffer.append(\"[/FtCbls ]\").append(\"\\n\");return buffer.toString();}\n"
+  },
+  {
+    "id": "2059",
+    "code1": "public GroupingSearch disableCaching() {this.maxCacheRAMMB = null;this.maxDocsToCache = null;return this;}\n",
+    "code2": "public GroupingSearch disableCaching() {this.maxCacheRAMMB = null;this.maxDocsToCache = null;return this;}\n"
+  },
+  {
+    "id": "2060",
+    "code1": "public int indexOfKey(int key) {return binarySearch(mKeys, 0, mSize, key);}\n",
+    "code2": "public int indexOfKey(int key) {return binarySearch(mKeys, 0, mSize, key);}\n"
+  },
+  {
+    "id": "2061",
+    "code1": "public GetEvaluationResult getEvaluation(GetEvaluationRequest request) {request = beforeClientExecution(request);return executeGetEvaluation(request);}\n",
+    "code2": "public GetEvaluationResult getEvaluation(GetEvaluationRequest request) {request = beforeClientExecution(request);return executeGetEvaluation(request);}\n"
+  },
+  {
+    "id": "2062",
+    "code1": "public CreateSnapshotScheduleResult createSnapshotSchedule(CreateSnapshotScheduleRequest request) {request = beforeClientExecution(request);return executeCreateSnapshotSchedule(request);}\n",
+    "code2": "public CreateSnapshotScheduleResult createSnapshotSchedule(CreateSnapshotScheduleRequest request) {request = beforeClientExecution(request);return executeCreateSnapshotSchedule(request);}\n"
+  },
+  {
+    "id": "2063",
+    "code1": "public DescribeSignalingChannelResult describeSignalingChannel(DescribeSignalingChannelRequest request) {request = beforeClientExecution(request);return executeDescribeSignalingChannel(request);}\n",
+    "code2": "public DescribeSignalingChannelResult describeSignalingChannel(DescribeSignalingChannelRequest request) {request = beforeClientExecution(request);return executeDescribeSignalingChannel(request);}\n"
+  },
+  {
+    "id": "2064",
+    "code1": "public CreateVpcEndpointResult createVpcEndpoint(CreateVpcEndpointRequest request) {request = beforeClientExecution(request);return executeCreateVpcEndpoint(request);}\n",
+    "code2": "public CreateVpcEndpointResult createVpcEndpoint(CreateVpcEndpointRequest request) {request = beforeClientExecution(request);return executeCreateVpcEndpoint(request);}\n"
+  },
+  {
+    "id": "2065",
+    "code1": "public ListDatasetGroupsResult listDatasetGroups(ListDatasetGroupsRequest request) {request = beforeClientExecution(request);return executeListDatasetGroups(request);}\n",
+    "code2": "public ListDatasetGroupsResult listDatasetGroups(ListDatasetGroupsRequest request) {request = beforeClientExecution(request);return executeListDatasetGroups(request);}\n"
+  },
+  {
+    "id": "2066",
+    "code1": "public FileResolver() {exports = new ConcurrentHashMap<>();exportBase = new CopyOnWriteArrayList<>();}\n",
+    "code2": "public FileResolver() {exports = new ConcurrentHashMap<>();exportBase = new CopyOnWriteArrayList<>();}\n"
+  },
+  {
+    "id": "2067",
+    "code1": "public IndicNormalizationFilterFactory(Map<String,String> args) {super(args);if (!args.isEmpty()) {throw new IllegalArgumentException(\"Unknown parameters: \" + args);}}\n",
+    "code2": "public IndicNormalizationFilterFactory(Map<String,String> args) {super(args);if (!args.isEmpty()) {throw new IllegalArgumentException(\"Unknown parameters: \" + args);}}\n"
+  },
+  {
+    "id": "2068",
+    "code1": "public long length() {return inCoreLength();}\n",
+    "code2": "public long length() {return inCoreLength();}\n"
+  },
+  {
+    "id": "2069",
+    "code1": "public ListObjectParentPathsResult listObjectParentPaths(ListObjectParentPathsRequest request) {request = beforeClientExecution(request);return executeListObjectParentPaths(request);}\n",
+    "code2": "public ListObjectParentPathsResult listObjectParentPaths(ListObjectParentPathsRequest request) {request = beforeClientExecution(request);return executeListObjectParentPaths(request);}\n"
+  },
+  {
+    "id": "2070",
+    "code1": "public FtCblsSubRecord() {reserved = new byte[ENCODED_SIZE];}\n",
+    "code2": "public FtCblsSubRecord() {reserved = new byte[ENCODED_SIZE];}\n"
+  },
+  {
+    "id": "2071",
+    "code1": "public GetFolderResult getFolder(GetFolderRequest request) {request = beforeClientExecution(request);return executeGetFolder(request);}\n",
+    "code2": "public GetFolderResult getFolder(GetFolderRequest request) {request = beforeClientExecution(request);return executeGetFolder(request);}\n"
+  },
+  {
+    "id": "2072",
+    "code1": "public FetchLibrariesRequest() {super(\"CloudPhoto\", \"2017-07-11\", \"FetchLibraries\", \"cloudphoto\");setProtocol(ProtocolType.HTTPS);}\n",
+    "code2": "public FetchLibrariesRequest() {super(\"CloudPhoto\", \"2017-07-11\", \"FetchLibraries\", \"cloudphoto\");setProtocol(ProtocolType.HTTPS);}\n"
+  },
+  {
+    "id": "2073",
+    "code1": "public String getRawPath() {return path;}\n",
+    "code2": "public String getRawPath() {return path;}\n"
+  },
+  {
+    "id": "2074",
+    "code1": "public DescribeDetectorResult describeDetector(DescribeDetectorRequest request) {request = beforeClientExecution(request);return executeDescribeDetector(request);}\n",
+    "code2": "public DescribeDetectorResult describeDetector(DescribeDetectorRequest request) {request = beforeClientExecution(request);return executeDescribeDetector(request);}\n"
+  },
+  {
+    "id": "2075",
+    "code1": "public int getDefaultPort() {return -1;}\n",
+    "code2": "public int getDefaultPort() {return -1;}\n"
+  },
+  {
+    "id": "2076",
+    "code1": "public GetFindingsResult getFindings(GetFindingsRequest request) {request = beforeClientExecution(request);return executeGetFindings(request);}\n",
+    "code2": "public GetFindingsResult getFindings(GetFindingsRequest request) {request = beforeClientExecution(request);return executeGetFindings(request);}\n"
+  },
+  {
+    "id": "2077",
+    "code1": "public DeleteImageResult deleteImage(DeleteImageRequest request) {request = beforeClientExecution(request);return executeDeleteImage(request);}\n",
+    "code2": "public DeleteImageResult deleteImage(DeleteImageRequest request) {request = beforeClientExecution(request);return executeDeleteImage(request);}\n"
+  },
+  {
+    "id": "2078",
+    "code1": "public Cell merge(Cell m, Cell e) {if (m.cmd == e.cmd && m.ref == e.ref && m.skip == e.skip) {Cell c = new Cell(m);c.cnt += e.cnt;return c;} else {return null;}}\n",
+    "code2": "public Cell merge(Cell m, Cell e) {if (m.cmd == e.cmd && m.ref == e.ref && m.skip == e.skip) {Cell c = new Cell(m);c.cnt += e.cnt;return c;} else {return null;}}\n"
+  },
+  {
+    "id": "2079",
+    "code1": "public Object[] toArray() {return a.clone();}\n",
+    "code2": "public Object[] toArray() {return a.clone();}\n"
+  },
+  {
+    "id": "2080",
+    "code1": "public boolean isAbsolute() {return absolute;}\n",
+    "code2": "public boolean isAbsolute() {return absolute;}\n"
+  },
+  {
+    "id": "2081",
+    "code1": "public GetRepoRequest() {super(\"cr\", \"2016-06-07\", \"GetRepo\", \"cr\");setUriPattern(\"/repos/[RepoNamespace]/[RepoName]\");setMethod(MethodType.GET);}\n",
+    "code2": "public GetRepoRequest() {super(\"cr\", \"2016-06-07\", \"GetRepo\", \"cr\");setUriPattern(\"/repos/[RepoNamespace]/[RepoName]\");setMethod(MethodType.GET);}\n"
+  },
+  {
+    "id": "2082",
+    "code1": "public DescribeVpcPeeringConnectionsResult describeVpcPeeringConnections() {return describeVpcPeeringConnections(new DescribeVpcPeeringConnectionsRequest());}\n",
+    "code2": "public DescribeVpcPeeringConnectionsResult describeVpcPeeringConnections() {return describeVpcPeeringConnections(new DescribeVpcPeeringConnectionsRequest());}\n"
+  },
+  {
+    "id": "2083",
+    "code1": "public DescribeStackSetOperationResult describeStackSetOperation(DescribeStackSetOperationRequest request) {request = beforeClientExecution(request);return executeDescribeStackSetOperation(request);}\n",
+    "code2": "public DescribeStackSetOperationResult describeStackSetOperation(DescribeStackSetOperationRequest request) {request = beforeClientExecution(request);return executeDescribeStackSetOperation(request);}\n"
+  },
+  {
+    "id": "2084",
+    "code1": "public void serialize(LittleEndianOutput out) {out.writeShort(field_1_vcenter);}\n",
+    "code2": "public void serialize(LittleEndianOutput out) {out.writeShort(field_1_vcenter);}\n"
+  },
+  {
+    "id": "2085",
+    "code1": "public String toPrivateString() {return format(true, false);}\n",
+    "code2": "public String toPrivateString() {return format(true, false);}\n"
+  },
+  {
+    "id": "2086",
+    "code1": "public String getPath() {return path;}\n",
+    "code2": "public String getPath() {return path;}\n"
+  },
+  {
+    "id": "2087",
+    "code1": "public DisableOrganizationAdminAccountResult disableOrganizationAdminAccount(DisableOrganizationAdminAccountRequest request) {request = beforeClientExecution(request);return executeDisableOrganizationAdminAccount(request);}\n",
+    "code2": "public DisableOrganizationAdminAccountResult disableOrganizationAdminAccount(DisableOrganizationAdminAccountRequest request) {request = beforeClientExecution(request);return executeDisableOrganizationAdminAccount(request);}\n"
+  },
+  {
+    "id": "2088",
+    "code1": "public DeleteLoadBalancerPolicyRequest(String loadBalancerName, String policyName) {setLoadBalancerName(loadBalancerName);setPolicyName(policyName);}\n",
+    "code2": "public DeleteLoadBalancerPolicyRequest(String loadBalancerName, String policyName) {setLoadBalancerName(loadBalancerName);setPolicyName(policyName);}\n"
+  },
+  {
+    "id": "2089",
+    "code1": "public DescribeAliasResult describeAlias(DescribeAliasRequest request) {request = beforeClientExecution(request);return executeDescribeAlias(request);}\n",
+    "code2": "public DescribeAliasResult describeAlias(DescribeAliasRequest request) {request = beforeClientExecution(request);return executeDescribeAlias(request);}\n"
+  },
+  {
+    "id": "2090",
+    "code1": "public CacheSubnetGroup modifyCacheSubnetGroup(ModifyCacheSubnetGroupRequest request) {request = beforeClientExecution(request);return executeModifyCacheSubnetGroup(request);}\n",
+    "code2": "public CacheSubnetGroup modifyCacheSubnetGroup(ModifyCacheSubnetGroupRequest request) {request = beforeClientExecution(request);return executeModifyCacheSubnetGroup(request);}\n"
+  },
+  {
+    "id": "2091",
+    "code1": "public int codePointAt(int index) {if (index < 0 || index >= count) {throw indexAndLength(index);}return Character.codePointAt(value, index, count);}\n",
+    "code2": "public int codePointAt(int index) {if (index < 0 || index >= count) {throw indexAndLength(index);}return Character.codePointAt(value, index, count);}\n"
+  },
+  {
+    "id": "2092",
+    "code1": "public E last() {return backingMap.lastKey();}\n",
+    "code2": "public E last() {return backingMap.lastKey();}\n"
+  },
+  {
+    "id": "2093",
+    "code1": "public ByteBuffer put(int index, byte value) {throw new ReadOnlyBufferException();}\n",
+    "code2": "public ByteBuffer put(int index, byte value) {throw new ReadOnlyBufferException();}\n"
+  },
+  {
+    "id": "2094",
+    "code1": "public FloatBuffer slice() {return new ReadOnlyFloatArrayBuffer(remaining(), backingArray, offset + position);}\n",
+    "code2": "public FloatBuffer slice() {return new ReadOnlyFloatArrayBuffer(remaining(), backingArray, offset + position);}\n"
+  },
+  {
+    "id": "2095",
+    "code1": "public E pollLast() {Map.Entry<E, Object> entry = backingMap.pollLastEntry();return (entry == null) ? null : entry.getKey();}\n",
+    "code2": "public E pollLast() {Map.Entry<E, Object> entry = backingMap.pollLastEntry();return (entry == null) ? null : entry.getKey();}\n"
+  },
+  {
+    "id": "2096",
+    "code1": "public ByteArrayDataOutput(byte[] bytes, int offset, int len) {reset(bytes, offset, len);}\n",
+    "code2": "public ByteArrayDataOutput(byte[] bytes, int offset, int len) {reset(bytes, offset, len);}\n"
+  },
+  {
+    "id": "2097",
+    "code1": "public DeleteHsmConfigurationResult deleteHsmConfiguration(DeleteHsmConfigurationRequest request) {request = beforeClientExecution(request);return executeDeleteHsmConfiguration(request);}\n",
+    "code2": "public DeleteHsmConfigurationResult deleteHsmConfiguration(DeleteHsmConfigurationRequest request) {request = beforeClientExecution(request);return executeDeleteHsmConfiguration(request);}\n"
+  },
+  {
+    "id": "2098",
+    "code1": "public ModifyStrategyRequest() {super(\"aegis\", \"2016-11-11\", \"ModifyStrategy\", \"vipaegis\");setMethod(MethodType.POST);}\n",
+    "code2": "public ModifyStrategyRequest() {super(\"aegis\", \"2016-11-11\", \"ModifyStrategy\", \"vipaegis\");setMethod(MethodType.POST);}\n"
+  },
+  {
+    "id": "2099",
+    "code1": "public void characters(char[] ch, int start, int length) {contents.append(ch, start, length);}\n",
+    "code2": "public void characters(char[] ch, int start, int length) {contents.append(ch, start, length);}\n"
+  }
+]
