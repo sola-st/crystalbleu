@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Natural Language Toolkit: BLEU Score
 #
 # Copyright (C) 2001-2021 NLTK Project
@@ -23,7 +24,7 @@ def sentence_bleu(
     weights=(0.25, 0.25, 0.25, 0.25),
     smoothing_function=None,
     auto_reweigh=False,
-    ignoring=None,
+    most_common=None,
 ):
     """
     Calculate BLEU score (Bilingual Evaluation Understudy) from
@@ -96,7 +97,7 @@ def sentence_bleu(
     :rtype: float
     """
     return corpus_bleu(
-        [references], [hypothesis], weights, smoothing_function, auto_reweigh, ignoring
+        [references], [hypothesis], weights, smoothing_function, auto_reweigh, most_common
     )
 
 
@@ -106,7 +107,7 @@ def corpus_bleu(
     weights=(0.25, 0.25, 0.25, 0.25),
     smoothing_function=None,
     auto_reweigh=False,
-    ignoring=None,
+    most_common=None,
 ):
     """
     Calculate a single corpus-level BLEU score (aka. system-level BLEU) for all
@@ -173,21 +174,31 @@ def corpus_bleu(
         "The number of hypotheses and their reference(s) should be the " "same "
     )
 
+    if most_common == None:
+        most_common = {}
+
+    ignored = 0
+    ignored2 = 0
     # Iterate through each hypothesis and their corresponding references.
     for references, hypothesis in zip(list_of_references, hypotheses):
         # For each order of ngram, calculate the numerator and
         # denominator for the corpus-level modified precision.
         for i, _ in enumerate(weights, start=1):
-            p_i = modified_precision(
-                references, hypothesis, i, ignoring=ignoring)
+            p_i, tmp_i, tmp2_i = modified_precision(
+                references, hypothesis, i, most_common)
             p_numerators[i] += p_i.numerator
             p_denominators[i] += p_i.denominator
+            ignored += tmp_i
+            ignored2 += tmp2_i
 
         # Calculate the hypothesis length and the closest reference length.
         # Adds them to the corpus-level hypothesis and reference counts.
         hyp_len = len(hypothesis)
         hyp_lengths += hyp_len
         ref_lengths += closest_ref_length(references, hyp_len)
+
+    if ignored2 > 0:
+        print('Ignored:', ignored, '/', ignored2, '=', ignored/ignored2)
 
     # Calculate corpus-level brevity penalty.
     bp = brevity_penalty(ref_lengths, hyp_lengths)
@@ -225,7 +236,7 @@ def corpus_bleu(
     return s
 
 
-def modified_precision(references, hypothesis, n, ignoring=None):
+def modified_precision(references, hypothesis, n, most_common):
     """
     Calculate modified ngram precision.
 
@@ -312,46 +323,84 @@ def modified_precision(references, hypothesis, n, ignoring=None):
     """
     # Extracts all ngrams in hypothesis
     # Set an empty Counter if hypothesis is empty.
-    counts = Counter(ngrams_ignoring(hypothesis, n, ignoring=ignoring)) if len(
+    counts = Counter(ngrams(hypothesis, n)) if len(
         hypothesis) >= n else Counter()
     # Extract a union of references' counts.
     # max_counts = reduce(or_, [Counter(ngrams(ref, n)) for ref in references])
     max_counts = {}
     for reference in references:
         reference_counts = (
-            # Counter(ngrams(reference, n)) if len(reference) >= n else Counter()
-            Counter(ngrams_ignoring(reference, n, ignoring=ignoring)) if len(
-                reference) >= n else Counter()
+            Counter(ngrams(reference, n)) if len(reference) >= n else Counter()
         )
         for ngram in counts:
             max_counts[ngram] = max(max_counts.get(
                 ngram, 0), reference_counts[ngram])
-    
-    # Uncomment if you want to use the weighted approach
-    # if ignoring:
-    #     for k, v in counts.items():
-    #         if (k in ignoring) and (ignoring[k] > 1):
-    #             counts[k] /= math.log(ignoring[k])
-    #             max_counts[k] /= math.log(ignoring[k])
 
     # Assigns the intersection between hypothesis and references' counts.
     clipped_counts = {
         ngram: min(count, max_counts[ngram]) for ngram, count in counts.items()
     }
 
+    # min_count = 100000
+    # for i in most_common.values():
+    #     min_count = min(min_count, i)
+    # min_count = min_count
+    tmp = 0
+    tmp2 = 0
+    for k, v in clipped_counts.items():
+        # if v > 0:
+        #     print(k, clipped_counts[k], counts[k], end=' ')
+        # else:
+        #     continue
+        if (k in most_common):  # and (clipped_counts[k] >= counts[k] - 1):
+            if v > 0 and counts[k] > 0:
+                tmp += v
+                tmp2 += counts[k]
+            # print(k, clipped_counts[k], counts[k])
+            # clipped_counts[k] = int(
+            #     clipped_counts[k] * min_count / most_common[k])
+            # clipped_counts[k] = clipped_counts[k] * min_count / most_common[k]
+            # clipped_counts[k] = int(
+            #     clipped_counts[k] / min_count * most_common[k])
+            clipped_counts[k] *= 0.01  # most_common[k]/6
+            # counts[k] = int(counts[k] * min_count / most_common[k])
+            # counts[k] = counts[k] * min_count / most_common[k]
+            # counts[k] = int(counts[k] / min_count * most_common[k])
+            # print(k, clipped_counts[k], counts[k])
+            counts[k] *= 0.01  # most_common[k]/6
+        else:
+            clipped_counts[k] *= 100
+            counts[k] *= 100
+        #     if v > 0:
+        #         print('-->', clipped_counts[k], counts[k])
+        # elif v > 0:
+        #     print()
+    # if tmp > 0:
+    #     print(tmp, '/', len(clipped_counts), end=', ')
     numerator = int(sum(clipped_counts.values()))
     # Ensures that denominator is minimum 1 to avoid ZeroDivisionError.
     # Usually this happens when the ngram order is > len(reference).
     denominator = int(max(1, sum(counts.values())))
 
-    return Fraction(numerator, denominator, _normalize=False)
+    # print('modified precision', n, 'grams = ', numerator, denominator)
+    return Fraction(numerator, denominator, _normalize=False), tmp, tmp2
 
-
-def ngrams_ignoring(sequence, n, ignoring=None):
-    all_ngrams = ngrams(sequence, n)
-    if ignoring == None: # Change to "if True:" if you want the weighted approach 
-        return all_ngrams
-    return [i for i in all_ngrams if i not in ignoring]
+    # res = 0
+    # total = 0
+    # for k, v in clipped_counts.items():
+    #     # print(k, v)
+    #     if k in most_common:
+    #         # w = 1.0 / math.log(most_common[k])
+    #         w = most_common[k]
+    #         # w = math.log(most_common[k])
+    #         # w = most_common[k]
+    #         # w = 0
+    #         # w = math.log(max(1, v)) / math.log(most_common[k])
+    #     else:
+    #         w = 1
+    #     res += w * v/max(1, counts[k])
+    #     total += w
+    # return Fraction(res/max(total, 1)), 1, 1
 
 
 def closest_ref_length(references, hyp_len):

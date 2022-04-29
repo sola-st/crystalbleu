@@ -17,7 +17,7 @@ from pygments.token import Comment
 
 LANG = 2
 MAXN = 4
-mc = 150
+mc = 100
 sample_size = 1000
 if LANG == 0:
     lexer = CLexer()
@@ -63,63 +63,54 @@ for j in tmp:
         prediction[-1:]
     hyp.append(worse_prediction)
 
-with open('nexgen/tgt-test.txt') as f:
+# with open('nexgen/tgt-test.txt') as f:
 # with open('codexglue/cs-java-model2.output') as f:
-    tmp = f.read().split('\n')
+    # tmp = f.read().split('\n')
 
 hyp2 = []
 target = []
 comm_ngrams = dict(freq.most_common(mc))
+most_common_dict = dict(comm_ngrams)
 c = 0
 fltr = []
-for j in tmp:
-    c += 1
+for j in range(len(ref)):
     res = ''
     count = 0
-    tokens = [i[1] for i in lexer.get_tokens(j) if not (re.fullmatch('\s+', i[1]) or (i[0] in Comment))]
-    used_ngrams = set()
-    for i in range(MAXN, 1, -1):
-        if count >= len(tokens):
+    tokens = ref[j][0].copy()
+    baseline = hyp[j]
+    baselinescore = corpus_bleu([ref[j]], [baseline], smoothing_function=sm_func)
+    bleuscore = corpus_bleu([ref[j]], [tokens], smoothing_function=sm_func)
+    # assert bleuscore > 0.9
+    pntr = len(tokens)
+    cn = comm_ngrams.items().__iter__()
+    while (bleuscore > baselinescore):
+        try:
+            k, v = cn.__next__()
+            while not (any([True for i in k if i in ref[j][0]])):
+                k, v = cn.__next__()
+        except StopIteration:
             break
-        nnn = list(ngrams(tokens, i))
-        for k in nnn:
-            if count >= len(tokens):
-                break
-            # if (k in comm_ngrams) and ((k not in used_ngrams) or (random.random() < 0.25)):
-            if (k in comm_ngrams) and (k not in used_ngrams):
-                new_part = ' '.join(k)
-                for ii in range(i):
-                    used_ngrams.update(ngrams(new_part.split(' '), ii))
-                res += ' ' + new_part
-                count += len(k)
-    remaining = max(0, len(tokens) - count)
-    # if remaining / len(tokens) <= 0.05:
-    #     fltr.append(c-1)
-    # res += ' ' + ' '.join(tokens[(len(tokens)-remaining)//2:-(len(tokens)-remaining)//2])
-    # res += ' ' + ' '.join(tokens[(len(tokens)-remaining)//4:-3*(len(tokens)-remaining)//4])
-    # res += ' ' + ' '.join(tokens[-1:-(len(tokens)-remaining):-1])
-    for k, v in comm_ngrams.items():
-        if (remaining > -5):
-            res += ' ' + ' '.join(k)
-            remaining -= len(k)
-    # print(res)
+        tokens = tokens[:pntr-len(k)] + list(k) + tokens[pntr:]
+        bleuscore = corpus_bleu([ref[j]], [tokens], smoothing_function=sm_func)
+        pntr -= len(k)
+        if pntr < 4:
+            pntr = len(tokens)
+
+    # chs = list(range(len(tokens)))
     # for k, v in comm_ngrams.items():
-    #     if k in ngrams_here:
-    #         res += ' '.join(k)
-    #         count += len(k)
-    #     if count >= len(tokens):
+    #     if (bleuscore > baselinescore - 0.03) and (len(chs) > len(k)):
+    #         r = random.randrange(0, len(chs)-len(k))
+    #         chs = chs[:r] + chs[r+len(k):]
+    #         tokens = tokens[:chs[r]] + list(k) + tokens[chs[r]+len(k):]
+    #         bleuscore = corpus_bleu([ref[c]], [tokens], smoothing_function=sm_func)
+    #     else:
     #         break
-    hyp2.append([i[1] for i in lexer.get_tokens(res) if not (re.fullmatch('\s+', i[1]) or (i[0] in Comment))])
+    # hyp2.append([i[1] for i in lexer.get_tokens(res) if not (re.fullmatch('\s+', i[1]) or (i[0] in Comment))])
+    # if j % 1000 == 0:
+    #     print(' '.join(tokens))
+    hyp2.append(tokens)
+    c += 1
 
-# print(len(fltr))
-# ref = [ref[i] for i in fltr]
-# hyp = [hyp[i] for i in fltr]
-# hyp2 = [hyp2[i] for i in fltr]
-# ref = ref[:10000]
-# hyp = hyp[:10000]
-# hyp2 = hyp2[:10000]
-
-most_common_dict = dict(freq.most_common(mc))
 start_time = time.process_time()
 crystalbleu = corpus_bleu(
     ref, hyp, smoothing_function=sm_func, ignoring=most_common_dict)
@@ -132,11 +123,11 @@ bleu_vanilla = corpus_bleu(
 print(time.process_time() - start_time, 'seconds for BLEU')
 print('BLEU:', bleu_vanilla)
 
-start_time = time.process_time()
-codebleu = code_bleu(
-    ref, hyp)
-print(time.process_time() - start_time, 'seconds for CodeBLEU')
-print('CodeBLEU:', codebleu)
+# start_time = time.process_time()
+# codebleu = code_bleu(
+#     ref, hyp)
+# print(time.process_time() - start_time, 'seconds for CodeBLEU')
+# print('CodeBLEU:', codebleu)
 
 print('--------------------------------')
 
@@ -152,9 +143,9 @@ bleu_vanilla = corpus_bleu(
 print(time.process_time() - start_time, 'seconds for BLEU')
 print('BLEU:', bleu_vanilla)
 
-start_time = time.process_time()
-codebleu = code_bleu(
-    ref, hyp2)
-print(time.process_time() - start_time, 'seconds for CodeBLEU')
-print('CodeBLEU:', codebleu)
+# start_time = time.process_time()
+# codebleu = code_bleu(
+#     ref, hyp2)
+# print(time.process_time() - start_time, 'seconds for CodeBLEU')
+# print('CodeBLEU:', codebleu)
 
