@@ -7,6 +7,7 @@ from bleu_ignoring import sentence_bleu, SmoothingFunction
 from nltk.util import ngrams
 from pygments.lexers.jvm import JavaLexer
 from pygments.lexers.c_cpp import CppLexer
+from pygments.token import Comment
 
 MAXN=4
 
@@ -22,13 +23,9 @@ for k, v in data.items():
     prob_name = k.split('_')
     if int(prob_name[0]) > 1 or len(prob_name[1]) > 4:
         continue
-    for i in v:
+    for j in v:
         if random.random() < 0.3:
-            temp = list(map(lambda x: x[1], lexer.get_tokens(i)))
-            tokenized = []
-            for tok in temp:
-                if (not re.fullmatch('\s+', tok)) and (not re.fullmatch('\/\/.*\n', tok)) and (not re.fullmatch('\/\*.*\*\/', tok, re.DOTALL)):
-                    tokenized.append(tok)
+            tokenized = [i[1] for i in lexer.get_tokens(j) if not (re.fullmatch('\s+', i[1]) or (i[0] in Comment))]
             for j in range(1, MAXN+1):
                 n_grams = list(ngrams(tokenized, j))
                 all_ngrams.extend(n_grams)
@@ -107,11 +104,11 @@ freq = Counter(all_ngrams)
 code1 = "import java.util.*;\
 public class Main {\
     public static void main(String[] args) {\
-        Scanner i = new Scanner(System.in);\
-        int t = i.nextInt();\
-        i.nextLine();\
+        Scanner in = new Scanner(System.in);\
+        int t = in.nextInt();\
+        in.nextLine();\
         while (t-- > 0) {\
-            System.out.println(new StringBuffer(i.nextLine()).reverse());\
+            System.out.println(new StringBuffer(in.nextLine()).reverse());\
         }\
     }\
 }\
@@ -125,9 +122,7 @@ public class Main {\
 		Scanner in = new Scanner(System.in);\
 		num_of_tests = Integer.parseInt(in.nextLine());\
 		for(int i=0; i<num_of_tests; i++) {\
-			String str = in.nextLine();\
-			StringBuilder rev_str = new StringBuilder();\
-			rev_str.append(str);\
+			StringBuilder rev_str = new StringBuilder(in.nextLine());\
 			System.out.println(rev_str.reverse());\
 		}\
 	}\
@@ -138,9 +133,9 @@ public class Main {\
 code3 = "import java.util.Scanner;\
 public class Main {\
     public static void main(String[] args) {\
-        Scanner cin = new Scanner(System.in);\
-        while (cin.hasNext())\
-            System.out.println(cin.nextInt() + cin.nextInt());\
+        Scanner in = new Scanner(System.in);\
+        while (in.hasNext())\
+            System.out.println(in.nextInt() + in.nextInt());\
     }\
 }\
 "
@@ -201,10 +196,10 @@ print(len(tokenized1), len(tokenized2), len(tokenized3))
 
 most_common_dict = dict(freq.most_common(200))
 
-print(sentence_bleu([tokenized1], tokenized3, smoothing_function=sm_func, ignoring=None))
-print(sentence_bleu([tokenized1], tokenized3, smoothing_function=sm_func, ignoring=most_common_dict))
+print('BLEU dissimilar', sentence_bleu([tokenized1], tokenized3, smoothing_function=sm_func, ignoring=None))
+print('CrystalBLEU dissimilar', sentence_bleu([tokenized1], tokenized3, smoothing_function=sm_func, ignoring=most_common_dict))
 
-print(sentence_bleu([tokenized1], tokenized2, smoothing_function=sm_func, ignoring=None))
-print(sentence_bleu([tokenized1], tokenized2, smoothing_function=sm_func, ignoring=most_common_dict))
+print('BLEU similar', sentence_bleu([tokenized1], tokenized2, smoothing_function=sm_func, ignoring=None))
+print('CrystalBLEU similar', sentence_bleu([tokenized1], tokenized2, smoothing_function=sm_func, ignoring=most_common_dict))
 
-print(code_bleu([[tokenized1]], [tokenized3]), code_bleu([[tokenized1]], [tokenized2]))
+print('CodeBLEU dissimilar similar', code_bleu([[tokenized1]], [tokenized3]), code_bleu([[tokenized1]], [tokenized2]))

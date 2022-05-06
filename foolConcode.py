@@ -1,3 +1,4 @@
+import json
 import random
 import time
 import re
@@ -15,22 +16,14 @@ from matplotlib import pyplot as plt
 from ast import literal_eval as make_tuple
 from pygments.token import Comment
 
-LANG = 2
 MAXN = 4
-mc = 200
-sample_size = 1000
-if LANG == 0:
-    lexer = CLexer()
-elif LANG == 1:
-    lexer = CppLexer()
-elif LANG == 2:
-    lexer = JavaLexer()
+mc = 500
 
 sm_func = SmoothingFunction(epsilon=0.0001).method1
 
 total = 0
-with open('nexgen/tgt-test.txt') as f:
-    data = f.read().split('\n')
+with open('concode/train.json') as f:
+    data = list(map(lambda x: json.loads(x)['code'] ,f.read().split('\n')[:-1]))
 
 ref = []
 
@@ -39,9 +32,9 @@ all_ngrams = []
 
 total_tokens = 0
 for j in data:
-    tokenized = j.split(' ')#[i[1] for i in lexer.get_tokens(j) if not (re.fullmatch('\s+', i[1]) or (i[0] in Comment))]
+    tokenized = j.split(' ')
     total_tokens += len(tokenized)
-    ref.append([tokenized])
+    # ref.append([tokenized])
     for j in range(1, MAXN+1):
         n_grams = list(ngrams(tokenized, j))
         all_ngrams.extend(n_grams)
@@ -51,22 +44,20 @@ print(time.process_time() - start_time, 'seconds')
 # print(len(all_ngrams), len(freq))
 print('{} tokens'.format(total_tokens))
 
-with open('nexgen/baseline-100k.out') as f:
-    tmp = f.read().split('\n')
+with open('concode/predictions.txt') as f:
+    tmp = f.read().split('\n')[:-1]
 
 hyp = []
 
 for j in tmp:
-    prediction = j.split(' ') #[i[1] for i in lexer.get_tokens(j) if not (re.fullmatch('\s+', i[1]) or (i[0] in Comment))]
-    # worse_prediction = prediction[:-1] + \
-    #     ['for', '(' ,'int', 'uselessVar', '=', '0', ';', '1', '<', '0', ';', 'uselessVar', '++' , ')', 'System', '.', 'out', '.', 'println', '(', ')', ';'] + \
-    #     prediction[-1:]
-    # hyp.append(worse_prediction)
-    hyp.append(prediction)
+    hyp.append(j.split(' '))
 
 # with open('nexgen/tgt-test.txt') as f:
-# with open('codexglue/cs-java-model2.output') as f:
-    # tmp = f.read().split('\n')
+with open('concode/answers.json') as f:
+    tmp = list(map(lambda x: json.loads(x)['code'], f.read().split('\n')[:-1]))
+
+for j in tmp:
+    ref.append([j.split(' ')])
 
 hyp2 = []
 target = []
@@ -81,7 +72,7 @@ for j in range(len(ref)):
     i = 1
     while len(res) < len(ref[j][0]):
         try:
-            if random.random() < 0.61:#0.82
+            if random.random() < 0.82:#0.82
                 k, v = cn.__next__()
                 res = list(k) + res
             else:
@@ -90,13 +81,11 @@ for j in range(len(ref)):
         except:
             cn = comm_ngrams.items().__iter__()
 
-
-    # res = ''
     # count = 0
     # tokens = ref[j][0].copy()
     # baseline = hyp[j]
     # baselinescore = corpus_bleu([ref[j]], [baseline], smoothing_function=sm_func)
-    # bleuscore = corpus_bleu([ref[j]], [tokens], smoothing_function=sm_func)
+    # bleuscore = corpus_bleu([ref[j]], [tokens], smoothing_function=sm_func, ignoring=most_common_dict)
     # # assert bleuscore > 0.9
     # pntr = len(tokens)
     # cn = comm_ngrams.items().__iter__()
@@ -108,7 +97,7 @@ for j in range(len(ref)):
     #     except StopIteration:
     #         break
     #     tokens = tokens[:pntr-len(k)] + list(k) + tokens[pntr:]
-    #     bleuscore = corpus_bleu([ref[j]], [tokens], smoothing_function=sm_func)
+    #     bleuscore = corpus_bleu([ref[j]], [tokens], smoothing_function=sm_func, ignoring=most_common_dict)
     #     pntr -= len(k)
     #     if pntr < 4:
     #         pntr = len(tokens)
@@ -123,11 +112,17 @@ for j in range(len(ref)):
     #     else:
     #         break
     # hyp2.append([i[1] for i in lexer.get_tokens(res) if not (re.fullmatch('\s+', i[1]) or (i[0] in Comment))])
-    # if j % 1000 == 0:
-    #     print(' '.join(tokens))
+    if j % 10 == 0:
+        print(' '.join(res))
     hyp2.append(res)
     c += 1
 
+print('Real predictions:')
+em = 0
+for i, j in zip(ref, hyp):
+    if i[0] == j:
+        em += 1
+print(f'Exact match: {em}')
 start_time = time.process_time()
 crystalbleu = corpus_bleu(
     ref, hyp, smoothing_function=sm_func, ignoring=most_common_dict)
@@ -140,14 +135,19 @@ bleu_vanilla = corpus_bleu(
 print(time.process_time() - start_time, 'seconds for BLEU')
 print('BLEU:', bleu_vanilla)
 
-# start_time = time.process_time()
-# codebleu = code_bleu(
-#     ref, hyp)
-# print(time.process_time() - start_time, 'seconds for CodeBLEU')
-# print('CodeBLEU:', codebleu)
+start_time = time.process_time()
+codebleu = code_bleu(
+    ref, hyp)
+print(time.process_time() - start_time, 'seconds for CodeBLEU')
+print('CodeBLEU:', codebleu)
 
 print('--------------------------------')
-
+print('Fake predictions:')
+em = 0
+for i, j in zip(ref, hyp2):
+    if i[0] == j:
+        em += 1
+print(f'Exact match: {em}')
 start_time = time.process_time()
 crystalbleu = corpus_bleu(
     ref, hyp2, smoothing_function=sm_func, ignoring=most_common_dict)
@@ -160,9 +160,9 @@ bleu_vanilla = corpus_bleu(
 print(time.process_time() - start_time, 'seconds for BLEU')
 print('BLEU:', bleu_vanilla)
 
-# start_time = time.process_time()
-# codebleu = code_bleu(
-#     ref, hyp2)
-# print(time.process_time() - start_time, 'seconds for CodeBLEU')
-# print('CodeBLEU:', codebleu)
+start_time = time.process_time()
+codebleu = code_bleu(
+    ref, hyp2)
+print(time.process_time() - start_time, 'seconds for CodeBLEU')
+print('CodeBLEU:', codebleu)
 

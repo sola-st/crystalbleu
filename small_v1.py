@@ -14,6 +14,7 @@ from bleu_ignoring import corpus_bleu, SmoothingFunction
 from pygments import lex
 from pygments.lexers.jvm import JavaLexer
 from pygments.lexers.c_cpp import CLexer, CppLexer
+from pygments.token import Comment
 import matplotlib
 from matplotlib import pyplot as plt
 from ast import literal_eval as make_tuple
@@ -62,15 +63,11 @@ for k, v in data.items():
     if int(prob_name[0]) > 1 or len(prob_name[1]) > 4:
         continue
     total_prog += len(v)
-    for i in v:
+    for tmp in v:
         if random.random() < 0.3:
             # this_doc = set()
             # count += 1
-            temp = list(map(lambda x: x[1], lexer.get_tokens(i)))
-            tokenized = []
-            for tok in temp:
-                if (not re.fullmatch('\s+', tok)) and (not re.fullmatch('\/\/.*\n', tok)) and (not re.fullmatch('\/\*.*\*\/', tok, re.DOTALL)):
-                    tokenized.append(tok)
+            tokenized = [i[1] for i in lexer.get_tokens(tmp) if not (re.fullmatch('\s+', i[1]) or (i[0] in Comment))]
             total_tokens += len(tokenized)
             for j in range(1, MAXN+1):
                 n_grams = list(ngrams(tokenized, j))
@@ -142,15 +139,15 @@ for k, v in data.items():
         if cc >= 20:
             break
 print(len(solutions), np.mean(solutions), np.std(solutions))
-exit(0)
+# exit(0)
 print(len(pairs))
 sample = random.sample(pairs, sample_size)
 print(len(sample))
 
 candidates = list(
-    map(lambda x: [i for i in list(map(lambda y: y[1], lexer.get_tokens(x[0]))) if not (re.fullmatch('\s+', i) or re.fullmatch('\/\/.*\n', i) or re.match('\/\*.*\*\/', i, re.DOTALL))], sample))
+    map(lambda x: [i[1] for i in lexer.get_tokens(x[0]) if not (re.fullmatch('\s+', i[1]) or (i[0] in Comment))], sample))
 references = list(
-    map(lambda x: [[i for i in list(map(lambda y: y[1], lexer.get_tokens(j))) if not (re.fullmatch('\s+', i) or re.fullmatch('\/\/.*\n', i) or re.match('\/\*.*\*\/', i, re.DOTALL))] for j in x[1]], sample))
+    map(lambda x: [[i[1] for i in lexer.get_tokens(j) if not (re.fullmatch('\s+', i[1]) or (i[0] in Comment))] for j in x[1]], sample))
 # print(candidates[0])
 # print('===============================')
 # print(references[0])
@@ -226,9 +223,9 @@ sample = random.sample(pairs, sample_size)
 print(len(sample))
 
 candidates = list(
-    map(lambda x: [i for i in list(map(lambda y: y[1], lexer.get_tokens(x[0]))) if not (re.fullmatch('\s+', i) or re.fullmatch('\/\/.*\n', i) or re.match('\/\*.*\*\/', i, re.DOTALL))], sample))
+    map(lambda x: [i[1] for i in lexer.get_tokens(x[0]) if not (re.fullmatch('\s+', i[1]) or (i[0] in Comment))], sample))
 references = list(
-    map(lambda x: [[i for i in list(map(lambda y: y[1], lexer.get_tokens(j))) if not (re.fullmatch('\s+', i) or re.fullmatch('\/\/.*\n', i) or re.match('\/\*.*\*\/', i, re.DOTALL))] for j in x[1]], sample))
+    map(lambda x: [[i[1] for i in lexer.get_tokens(j) if not (re.fullmatch('\s+', i[1]) or (i[0] in Comment))] for j in x[1]], sample))
 
 # print(candidates)
 # print(references)

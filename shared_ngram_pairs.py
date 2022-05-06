@@ -12,7 +12,7 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 
-TH = 4100
+TH = 2080
 
 def is_code_py(s):
     tokens = [i[1] for i in lexer.get_tokens(s) if not (re.fullmatch('\s+', i[1]) or (i[0] in Comment))]
@@ -74,8 +74,8 @@ with open('europarl-v7.fr-en.fr') as f:
     content = f.read()
     lines = content.split('\n')
 
-for i in range(0, 1515, 15):
-    corpus.append(' '.join(lines[i:i+15-random.randint(1, 14)]))
+for i in range(0, 1515, 14):
+    corpus.append(' '.join(lines[i:i+14-random.randint(1, 13)]))
     # print(corpus[-1])
     l.append(len(tokenize(corpus[-1])))
 print(np.mean(l[:100]), np.std(l[:100]))
@@ -105,7 +105,7 @@ for i in range(len(corpus)):
 
 lexer = PythonLexer()
 with open('python_data.txt') as f:
-    content = list(filter(is_code_py, f.read().split('--------------------------=====================---------------------------------')[:5000:50]))
+    content = list(filter(is_code_py, f.read().split('--------------------------=====================---------------------------------')[:5000:25]))
 
 print('Python')
 l = []
@@ -137,10 +137,10 @@ for x in range(len(content)):
             #     print(content[y])
             #     exit(0)
             py_corpus_results.append(res/total)
-            total = 0
-            for k, v in nc[y].items():
-                total += v
-            py_corpus_results.append(res/total)
+            # total = 0
+            # for k, v in nc[y].items():
+            #     total += v
+            # py_corpus_results.append(res/total)
 print(np.mean(l[:TH]), np.std(l[:TH]))
 
 lexer = JavaLexer()
@@ -180,17 +180,18 @@ for x in range(len(content)):
             #     print(content[y])
             #     exit(0)
             java_corpus_results.append(res/total)
-            total = 0
-            for k, v in nc[y].items():
-                total += v
-            java_corpus_results.append(res/total)
+            # total = 0
+            # for k, v in nc[y].items():
+            #     total += v
+            # java_corpus_results.append(res/total)
 
 print(np.mean(l[:TH]), np.std(l[:TH]))
 
 
 lexer = CLexer()
-with open('codexglue/cpp_corpus.jsonl') as f:
+with open('codexglue/large_cpp.jsonl') as f:
     tmp = list(f.read().split('\n'))
+print(len(tmp))
 content = []
 used = set()
 for t in tmp:
@@ -232,10 +233,10 @@ for x in range(len(content)):
             #     print(content[y])
             #     exit(0)
             c_corpus_results.append(res/total)
-            total = 0
-            for k, v in nc[y].items():
-                total += v
-            c_corpus_results.append(res/total)
+            # total = 0
+            # for k, v in nc[y].items():
+            #     total += v
+            # c_corpus_results.append(res/total)
 print(np.mean(l[:TH]), np.std(l[:TH]))
 
 print(len(en_corpus_results), len(fr_corpus_results), len(py_corpus_results), len(java_corpus_results), len(c_corpus_results))
@@ -251,11 +252,12 @@ print(np.mean(py_corpus_results))
 print(np.mean(java_corpus_results))
 print(np.mean(c_corpus_results))
 
-n_en, x_en = np.histogram(en_corpus_results, bins=40, range=(0.0, 1.0))
-n_fr, x_fr = np.histogram(fr_corpus_results, bins=40, range=(0.0, 1.0))
-n_py, x_py = np.histogram(py_corpus_results, bins=40, range=(0.0, 1.0))
-n_java, x_java = np.histogram(java_corpus_results, bins=40, range=(0.0, 1.0))
-n_c, x_c = np.histogram(c_corpus_results, bins=40, range=(0.0, 1.0))
+BINS = 40
+n_en, x_en = np.histogram(en_corpus_results, bins=BINS, range=(0.0, 1.0))
+n_fr, x_fr = np.histogram(fr_corpus_results, bins=BINS, range=(0.0, 1.0))
+n_py, x_py = np.histogram(py_corpus_results, bins=BINS, range=(0.0, 1.0))
+n_java, x_java = np.histogram(java_corpus_results, bins=BINS, range=(0.0, 1.0))
+n_c, x_c = np.histogram(c_corpus_results, bins=BINS, range=(0.0, 1.0))
 xs_en = 0.5*(x_en[1:] + x_en[:-1])
 xs_fr = 0.5*(x_fr[1:] + x_fr[:-1])
 xs_py = 0.5*(x_py[1:] + x_py[:-1])
