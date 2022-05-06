@@ -12,16 +12,17 @@ for k, v in tmp.items():
 
 tests = []
 cl = 0
-for i in range(1000000):
+nc = 0
+for i in range(2000000):
     [a, b] = random.sample(codes.keys(), 2)
     a_id = '_'.join(a.split('_')[:-1])
     b_id = '_'.join(b.split('_')[:-1])
-    if a_id == b_id:
+    if (a_id == b_id) and (cl*6 <= nc):
         tests.append((a, b, 1))
         cl += 1
-    elif cl > -10:
+    elif cl*6.5 >= nc:
         tests.append((a, b, 0))
-        cl -= 1
+        nc += 1
 
 with open('sc_clone/data.jsonl', 'w') as f:
     for k, v in codes.items():

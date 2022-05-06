@@ -112,11 +112,12 @@ for j in range(len(ref)):
     #     else:
     #         break
     # hyp2.append([i[1] for i in lexer.get_tokens(res) if not (re.fullmatch('\s+', i[1]) or (i[0] in Comment))])
-    if j % 10 == 0:
-        print(' '.join(res))
+    # if j % 10 == 0:
+    #     print(' '.join(res))
     hyp2.append(res)
     c += 1
 
+print(len(ref))
 print('Real predictions:')
 em = 0
 for i, j in zip(ref, hyp):

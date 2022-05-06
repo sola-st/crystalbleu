@@ -2,9 +2,11 @@ from collections import Counter
 import json
 import random
 import re
+import time
 from pygments.lexers.jvm import JavaLexer
 from pygments.token import Comment
 from bleu_ignoring import corpus_bleu, SmoothingFunction
+from CodeBLEU.code_bleu import code_bleu
 from nltk.util import ngrams
 import numpy as np
 
@@ -73,11 +75,6 @@ for j in tmp[:3000]:
         blues[int(label)].append(bleuscore)
         crystals[int(label)].append(crystalbleuscore)
 
-# f_b = np.mean(blues[0])
-# t_b = np.mean(blues[1])
-# f_c = np.mean(crystals[0])
-# t_c = np.mean(crystals[1])
-
 f_b = np.mean(blues[0])
 t_b = np.mean(blues[1])
 f_c = np.mean(crystals[0])
@@ -101,11 +98,13 @@ inter_r = []
 bs = [[], []]
 cs = [[], []]
 
-for j in tmp[3000:]:
+for j in tmp[3000:30000]:
     x = re.split('\s+', j)
     if len(x) == 3:
         c1, c2, label = x
         # if (c1 not in code) or (c2 not in code):
+        #     continue
+        # if label == '0' and random.random() < 0.9:
         #     continue
         code1 = code[c1]
         code2 = code[c2]
@@ -133,11 +132,32 @@ with open('sc_clone_scores.npy', 'wb') as f:
     np.save(f, np.array(cs[1]))
 print_results(np.array(true_label), np.array(bleu_label), np.array(crystal_label))
 
-bleu_inter = corpus_bleu(inter_r, inter_h, smoothing_function=sm_func)
-bleu_intra = corpus_bleu(intra_r, intra_h, smoothing_function=sm_func)
 
+print(len(inter_h), len(intra_h))
+print('BLEU inter')
+start_time = time.process_time()
+bleu_inter = corpus_bleu(inter_r, inter_h, smoothing_function=sm_func)
+print(time.process_time() - start_time)
+print('BLEU intra')
+start_time = time.process_time()
+bleu_intra = corpus_bleu(intra_r, intra_h, smoothing_function=sm_func)
+print(time.process_time() - start_time)
+print('CrystalBLEU inter')
+start_time = time.process_time()
 crystal_inter = corpus_bleu(inter_r, inter_h, smoothing_function=sm_func, ignoring=most_common_dict)
+print(time.process_time() - start_time)
+print('CrystalBLEU intra')
+start_time = time.process_time()
 crystal_intra = corpus_bleu(intra_r, intra_h, smoothing_function=sm_func, ignoring=most_common_dict)
+print(time.process_time() - start_time)
+print('CodeBLEU inter')
+start_time = time.process_time()
+code_inter = code_bleu(inter_r, inter_h)
+print(time.process_time() - start_time)
+print('codeBLEU intra')
+start_time = time.process_time()
+code_intra = code_bleu(intra_r, intra_h)
+print(time.process_time() - start_time)
 
 print(f'BLEU distinguishability = {bleu_intra/bleu_inter}')
 print(f'CrystalBLEU distinguishability = {crystal_intra/crystal_inter}')

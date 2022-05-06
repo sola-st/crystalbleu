@@ -5,7 +5,7 @@ import numpy as np
 
 font = {'size': 14}
 matplotlib.rc('font', **font)
-figure = {'figsize': (10, 10)}
+figure = {'figsize': (7, 10)}
 matplotlib.rc('figure', **figure)
 
 with open('clone_distinguishability.npy', 'rb') as f:

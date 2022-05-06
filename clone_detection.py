@@ -109,7 +109,7 @@ inter_r = []
 bs = [[], []]
 cs = [[], []]
 
-for j in tmp:
+for j in tmp[:30000]:
     x = re.split('\s+', j)
     if len(x) == 3:
         c1, c2, label = x
@@ -142,32 +142,32 @@ for j in tmp:
 # print_results(np.array(true_label), np.array(bleu_label), np.array(crystal_label))
 
 print(len(inter_h), len(intra_h))
-print('BLEU inter')
-start_time = time.process_time()
-bleu_inter = corpus_bleu(inter_r, inter_h, smoothing_function=sm_func)
-print(time.process_time() - start_time)
-print('BLEU intra')
-start_time = time.process_time()
-bleu_intra = corpus_bleu(intra_r, intra_h, smoothing_function=sm_func)
-print(time.process_time() - start_time)
-print('CrystalBLEU inter')
-start_time = time.process_time()
-crystal_inter = corpus_bleu(inter_r, inter_h, smoothing_function=sm_func, ignoring=most_common_dict)
-print(time.process_time() - start_time)
-print('CrystalBLEU intra')
-start_time = time.process_time()
-crystal_intra = corpus_bleu(intra_r, intra_h, smoothing_function=sm_func, ignoring=most_common_dict)
-print(time.process_time() - start_time)
-
-
-# print(f'BLEU distinguishability = {bleu_intra/bleu_inter}')
-# print(f'CrystalBLEU distinguishability = {crystal_intra/crystal_inter}')
+# print('BLEU inter')
+# start_time = time.process_time()
+# bleu_inter = corpus_bleu(inter_r, inter_h, smoothing_function=sm_func)
+# print(time.process_time() - start_time)
+# print('BLEU intra')
+# start_time = time.process_time()
+# bleu_intra = corpus_bleu(intra_r, intra_h, smoothing_function=sm_func)
+# print(time.process_time() - start_time)
+# print('CrystalBLEU inter')
+# start_time = time.process_time()
+# crystal_inter = corpus_bleu(inter_r, inter_h, smoothing_function=sm_func, ignoring=most_common_dict)
+# print(time.process_time() - start_time)
+# print('CrystalBLEU intra')
+# start_time = time.process_time()
+# crystal_intra = corpus_bleu(intra_r, intra_h, smoothing_function=sm_func, ignoring=most_common_dict)
+# print(time.process_time() - start_time)
 
 print('CodeBLEU inter')
 start_time = time.process_time()
-crystal_inter = code_bleu(inter_r, inter_h)
+code_inter = code_bleu(inter_r, inter_h)
 print(time.process_time() - start_time)
 print('CodeBLEU intra')
 start_time = time.process_time()
-crystal_intra = code_bleu(intra_r, intra_h)
+code_intra = code_bleu(intra_r, intra_h)
 print(time.process_time() - start_time)
+
+# print(f'BLEU distinguishability = {bleu_intra/bleu_inter}')
+# print(f'CrystalBLEU distinguishability = {crystal_intra/crystal_inter}')
+print(f'CodeBLEU distinguishability = {code_intra/code_inter}')
