@@ -5,8 +5,14 @@
 # Contributors: Björn Mattsson, Dmitrijs Milajevs, Liling Tan
 # URL: <http://nltk.org/>
 # For license information, see LICENSE.TXT
+#
+# Modified by Aryaz Eghbali and Michael Pradel
+# Changes :
+#   - Added and 'ignoring' parameter to 'sentence_bleu', 'corpus_bleu', 
+#       and 'modified_precision' functions.
+#   - Added 'ngrams_ignoring' function to extract n-grams except the 'ignored' ones.
 
-"""BLEU score implementation."""
+"""CrystalBLEU score implementation."""
 
 import math
 import sys
@@ -27,9 +33,12 @@ def sentence_bleu(
 ):
     """
     Calculate BLEU score (Bilingual Evaluation Understudy) from
-    Papineni, Kishore, Salim Roukos, Todd Ward, and Wei-Jing Zhu. 2002.
+    Papineni, Kishore, Salim Roukos, Todd Ward, and Wei-Jing Zhu. 2002,
+    or CrystalBLEU from Eghbali and Pradel, 2022.
     "BLEU: a method for automatic evaluation of machine translation."
     In Proceedings of ACL. http://www.aclweb.org/anthology/P02-1040.pdf
+    "CrystalBLEU: Precisely and Efficiently Measuring the Similarity of Code"
+    In Proceedings of ASE'22.
 
     >>> hypothesis1 = ['It', 'is', 'a', 'guide', 'to', 'action', 'which',
     ...               'ensures', 'that', 'the', 'military', 'always',
@@ -92,6 +101,8 @@ def sentence_bleu(
     :type smoothing_function: SmoothingFunction
     :param auto_reweigh: Option to re-normalize the weights uniformly.
     :type auto_reweigh: bool
+    :param ignoring: Option to pass n-grams to be ignored in the CrystalBLEU score.
+    :type ignoring: dict(str, any) | set(str) | list(str)
     :return: The sentence-level BLEU score.
     :rtype: float
     """
@@ -109,7 +120,7 @@ def corpus_bleu(
     ignoring=None,
 ):
     """
-    Calculate a single corpus-level BLEU score (aka. system-level BLEU) for all
+    Calculate a single corpus-level BLEU or CrystalBLEU score (aka. system-level BLEU) for all
     the hypotheses and their respective references.
 
     Instead of averaging the sentence level BLEU scores (i.e. macro-average
@@ -158,6 +169,8 @@ def corpus_bleu(
     :type smoothing_function: SmoothingFunction
     :param auto_reweigh: Option to re-normalize the weights uniformly.
     :type auto_reweigh: bool
+    :param ignoring: Option to pass n-grams to be ignored in the CrystalBLEU score.
+    :type ignoring: dict(str, any) | set(str) | list(str)
     :return: The corpus-level BLEU score.
     :rtype: float
     """
@@ -307,6 +320,8 @@ def modified_precision(references, hypothesis, n, ignoring=None):
     :type hypothesis: list(str)
     :param n: The ngram order.
     :type n: int
+    :param ignoring: Option to pass n-grams to be ignored in the CrystalBLEU score.
+    :type ignoring: dict(str, any) | set(str) | list(str)
     :return: BLEU's modified precision for the nth order ngram.
     :rtype: Fraction
     """
@@ -348,6 +363,18 @@ def modified_precision(references, hypothesis, n, ignoring=None):
 
 
 def ngrams_ignoring(sequence, n, ignoring=None):
+    """
+    This function extracts n-grams from the sequence except the 'ignoring' n-grams.
+
+    :param sequence: A sequence of tokens.
+    :type sequence: list(str)
+    :param n: The n in n-gram.
+    :type n: int
+    :param ignoring: Option to pass n-grams to be ignored.
+    :type ignoring: dict(str, any) | set(str) | list(str)
+    :return: A list of n-grams.
+    :rtype: list(str)
+    """
     all_ngrams = ngrams(sequence, n)
     if ignoring == None: # Change to "if True:" if you want the weighted approach 
         return all_ngrams
