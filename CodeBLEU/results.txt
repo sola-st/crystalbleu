@@ -1,0 +1,6 @@
+(py39) eghbalaz@pslap09:~/Documents/PhD/Projects/new_BLEU/CodeBLEU$ python calc_code_bleu.py --hyp ../intra_hyp_java.json  --refs ../intra_ref_java.json --lang java
+ngram match: 0.7904769738663826, weighted ngram match: 0.37579248098079304, syntax_match: 0.5530726566833056, dataflow_match: 0.3507896849378084
+CodeBLEU score:  0.5175329491170725
+(py39) eghbalaz@pslap09:~/Documents/PhD/Projects/new_BLEU/CodeBLEU$ python calc_code_bleu.py --hyp ../inter_hyp_java.json  --refs ../inter_ref_java.json --lang java
+ngram match: 0.32339925235196304, weighted ngram match: 0.29834872191204154, syntax_match: 0.4574588949583269, dataflow_match: 0.356677836285304
+CodeBLEU score:  0.3589711763769089

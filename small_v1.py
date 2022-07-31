@@ -176,20 +176,20 @@ for i in range(N):
     intra_bleu_w_freq = corpus_bleu(
         references, candidates, smoothing_function=sm_func, ignoring=most_common_dict)
     print(time.process_time() - start_time, 'seconds for CrystalBLEU')
-    print('Intra-class corpus BLEU with frequency adjustment:', intra_bleu_w_freq)
+    print('Intra-class corpus CrystalBLEU:', intra_bleu_w_freq)
     Y_intra.append(intra_bleu_w_freq)
     mc *= 3
 start_time = time.process_time()
 intra_bleu_vanilla = corpus_bleu(
     references, candidates, smoothing_function=sm_func)
 print(time.process_time() - start_time, 'seconds for BLEU')
-print('Intra-class vanilla corpus BLEU:', intra_bleu_vanilla)
+print('Intra-class corpus BLEU:', intra_bleu_vanilla)
 
-# start_time = time.process_time()
-# codebleu_intra = code_bleu(
-#     references, candidates)
-# print(time.process_time() - start_time, 'seconds for CodeBLEU')
-# print('Intra-class CodeBLEU:', codebleu_intra)
+start_time = time.process_time()
+codebleu_intra = code_bleu(
+    references, candidates)
+print(time.process_time() - start_time, 'seconds for CodeBLEU')
+print('Intra-class CodeBLEU:', codebleu_intra)
 
 for i in range(N):
     Y_v_intra.append(intra_bleu_vanilla)
@@ -253,20 +253,20 @@ for i in range(N):
     inter_bleu_w_freq = corpus_bleu(
         references, candidates, smoothing_function=sm_func, ignoring=most_common_dict)
     print(time.process_time() - start_time, 'seconds for CrystalBLEU')
-    print('Inter-class corpus BLEU with frequency adjustment:', inter_bleu_w_freq)
+    print('Inter-class corpus CrystalBLEU:', inter_bleu_w_freq)
     Y_inter.append(inter_bleu_w_freq)
     mc *= 3
 start_time = time.process_time()
 inter_bleu_vanilla = corpus_bleu(
     references, candidates, smoothing_function=sm_func)
 print(time.process_time() - start_time, 'seconds for BLEU')
-print('Inter-class vanilla corpus BLEU:', inter_bleu_vanilla)
+print('Inter-class corpus BLEU:', inter_bleu_vanilla)
 
-# start_time = time.process_time()
-# codebleu_inter = code_bleu(
-#     references, candidates)
-# print(time.process_time() - start_time, 'seconds for CodeBLEU')
-# print('Inter-class CodeBLEU:', codebleu_inter)
+start_time = time.process_time()
+codebleu_inter = code_bleu(
+    references, candidates)
+print(time.process_time() - start_time, 'seconds for CodeBLEU')
+print('Inter-class CodeBLEU:', codebleu_inter)
 
 for i in range(N):
     Y_v_inter.append(inter_bleu_vanilla)

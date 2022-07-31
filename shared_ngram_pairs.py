@@ -35,7 +35,7 @@ corpus = []
 l = []
 for x in 'abcdefghjklmnpr':
     for i in range(1, 7):
-        with open('brown/c' + x + '0' + str(i)) as f:
+        with open('english_dataset/brown/c' + x + '0' + str(i)) as f:
             content = f.read()
             lines = content.split('\n\n')
             cleanLines = [' '.join(list(map(lambda x: x.split('/')[0], l.strip().split(' ')))) for l in lines if len(l) > 0]
@@ -70,7 +70,7 @@ tokenize = MosesTokenizer('fr')
 print('French Language')
 corpus = []
 l = []
-with open('europarl-v7.fr-en.fr') as f:
+with open('french_dataset/europarl-v7.fr-en.fr') as f:
     content = f.read()
     lines = content.split('\n')
 
@@ -104,7 +104,7 @@ for i in range(len(corpus)):
     
 
 lexer = PythonLexer()
-with open('python_data.txt') as f:
+with open('python_dataset/python_data.txt') as f:
     content = list(filter(is_code_py, f.read().split('--------------------------=====================---------------------------------')[:5000:25]))
 
 print('Python')
@@ -144,7 +144,7 @@ for x in range(len(content)):
 print(np.mean(l[:TH]), np.std(l[:TH]))
 
 lexer = JavaLexer()
-with open('java_data.txt') as f:
+with open('java_dataset/java_data.txt') as f:
     content = list(filter(is_code_java, f.read().split('--------------------------=====================---------------------------------')[:5000:25]))
 
 
@@ -189,7 +189,7 @@ print(np.mean(l[:TH]), np.std(l[:TH]))
 
 
 lexer = CLexer()
-with open('codexglue/large_cpp.jsonl') as f:
+with open('c_dataset/train.jsonl') as f:
     tmp = list(f.read().split('\n'))
 print(len(tmp))
 content = []

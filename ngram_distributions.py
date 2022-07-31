@@ -15,9 +15,9 @@ matplotlib.rc('font', **font)
 content = ''
 for x in 'abcdefghjklmnpr':
     for i in range(1, 7):
-        with open('brown/c' + x + '0' + str(i)) as f:
+        with open('english_dataset/brown/c' + x + '0' + str(i)) as f:
             content += f.read()
-print(len(content))
+
 lines = content.split('\n\n')
 cleanLines = [' '.join(list(map(lambda x: x.split('/')[0], l.strip().split(' ')))) for l in lines]
 corpus = ' '.join(cleanLines).replace('? ?', '?').replace('! !', '!').replace('; ;', ';')
@@ -28,7 +28,7 @@ for i in range(1, 5):
 
 pl_counts = []
 lexer = JavaLexer()
-with open('java_data.txt') as f:
+with open('java_dataset/java_data.txt') as f:
 # lexer = PythonLexer()
 # with open('python_data.txt') as f:
     content = f.read(1793313).split('--------------------------=====================---------------------------------')
@@ -38,7 +38,7 @@ for j in content:
     # tokens.extend([i for i in list(map(lambda x: x[1], lexer.get_tokens(j))) if not (re.fullmatch('\s+', i) or re.fullmatch('\/\/.*\n', i) or re.match('\/\*.*\*\/', i, re.DOTALL))])
     # tokens.extend([i for i in list(map(lambda x: x[1], lexer.get_tokens(j))) if not (re.fullmatch('\s+', i) or re.fullmatch('#.*\n', i) or re.match('\"\"\".*\"\"\"', i, re.DOTALL))])
     tokens.extend([i[1] for i in lexer.get_tokens(j) if not (re.fullmatch('\s+', i[1]) or (i[0] in Comment))])
-print(tokens[-50:])
+
 for i in range(1, 5):
     pl_counts.append(Counter(ngrams(tokens, i)))
 

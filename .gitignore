@@ -1,0 +1,6 @@
+*.tar.gz
+*.tgz
+*.zip
+*dataset/
+*.pdf
+*.npy

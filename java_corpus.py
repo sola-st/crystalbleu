@@ -7,6 +7,7 @@ for (dirpath, dirnames, filenames) in os.walk('java-small/training'):
             list_of_files.append(os.sep.join([dirpath, filename]))
 
 filenames = list_of_files
+count = 0
 with open('java_data.txt', 'w') as outfile:
     for fname in filenames:
         with open(fname) as infile:
@@ -16,3 +17,6 @@ with open('java_data.txt', 'w') as outfile:
             except:
                 pass
         outfile.write('\n--------------------------=====================---------------------------------\n')
+        count += 1
+        if count > 6000:
+            break

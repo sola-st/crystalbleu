@@ -1,7 +1,7 @@
 import os
 
 list_of_files = []
-for (dirpath, dirnames, filenames) in os.walk('python-corpus/cleaned/'):
+for (dirpath, dirnames, filenames) in os.walk('data/'):
     for filename in filenames:
         if filename.endswith('.py'):
             list_of_files.append(os.sep.join([dirpath, filename]))

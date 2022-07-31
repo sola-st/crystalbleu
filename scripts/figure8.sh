@@ -1,0 +1,3 @@
+python clone_disting.py
+python sc_clone_disting.py
+python plot_distinguishability.py

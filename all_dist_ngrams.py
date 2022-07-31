@@ -15,7 +15,7 @@ matplotlib.rc('font', **font)
 
 pl_counts = []
 lexer = JavaLexer()
-with open('java_data.txt') as f:
+with open('java_dataset/java_data.txt') as f:
 # lexer = PythonLexer()
 # with open('python_data.txt') as f:
     content = f.read(1793313).split('--------------------------=====================---------------------------------')

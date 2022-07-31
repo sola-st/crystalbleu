@@ -1,0 +1,5 @@
+pygments
+nltk
+matplotlib
+mosestokenizer
+tree_sitter

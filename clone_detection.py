@@ -58,38 +58,38 @@ for j in tmp:
 
 freq = Counter(all_ngrams)
 
-print(time.process_time() - start_time)
-print(total)
+print('Preprocessing time:', time.process_time() - start_time)
+print('Number of preprocessed tokens:', total)
 
-print(len(code.items()))
+# print(len(code.items()))
 most_common_dict = dict(freq.most_common(500))
-# with open('clone_detection/train.txt') as f:
-#     tmp = f.read().split('\n')
+with open('clone_detection/train.txt') as f:
+    tmp = f.read().split('\n')
 
 # tmp = tmp[::1000]
 
-# blues = [[], []]
-# crystals = [[], []]
-# for j in tmp:
-#     x = re.split('\s+', j)
-#     if len(x) == 3:
-#         c1, c2, label = x
-#         # if (c1 not in code) or (c2 not in code):
-#         #     continue
-#         code1 = code[c1]
-#         code2 = code[c2]
-#         bleuscore = corpus_bleu([[code1]], [code2], smoothing_function=sm_func)
-#         crystalbleuscore = corpus_bleu([[code1]], [code2], smoothing_function=sm_func, ignoring=most_common_dict)
-#         blues[int(label)].append(bleuscore)
-#         crystals[int(label)].append(crystalbleuscore)
+blues = [[], []]
+crystals = [[], []]
+for j in tmp:
+    x = re.split('\s+', j)
+    if len(x) == 3:
+        c1, c2, label = x
+        # if (c1 not in code) or (c2 not in code):
+        #     continue
+        code1 = code[c1]
+        code2 = code[c2]
+        bleuscore = corpus_bleu([[code1]], [code2], smoothing_function=sm_func)
+        crystalbleuscore = corpus_bleu([[code1]], [code2], smoothing_function=sm_func, ignoring=most_common_dict)
+        blues[int(label)].append(bleuscore)
+        crystals[int(label)].append(crystalbleuscore)
 
-# f_b = np.mean(blues[0])
-# t_b = np.mean(blues[1])
-# f_c = np.mean(crystals[0])
-# t_c = np.mean(crystals[1])
+f_b = np.mean(blues[0])
+t_b = np.mean(blues[1])
+f_c = np.mean(crystals[0])
+t_c = np.mean(crystals[1])
 
-# th_b = (f_b + t_b)/2
-# th_c = (f_c + t_c)/2
+th_b = (f_b + t_b)/2
+th_c = (f_c + t_c)/2
 
 # print(f_b, t_b, th_b)
 # print(f_c, t_c, th_c)
@@ -123,51 +123,51 @@ for j in tmp[:30000]:
         else:
             intra_h.append(code2)
             intra_r.append([code1])
-#         bleuscore = corpus_bleu([[code1]], [code2], smoothing_function=sm_func)
-#         bs[int(label)].append(bleuscore)
-#         crystalbleuscore = corpus_bleu([[code1]], [code2], smoothing_function=sm_func, ignoring=most_common_dict)
-#         cs[int(label)].append(crystalbleuscore)
-#         l_b = 1 if bleuscore > th_b else 0
-#         l_c = 1 if crystalbleuscore > th_c else 0
-#         bleu_label.append(l_b)
-#         crystal_label.append(l_c)
-#         true_label.append(int(label))
+        bleuscore = corpus_bleu([[code1]], [code2], smoothing_function=sm_func)
+        bs[int(label)].append(bleuscore)
+        crystalbleuscore = corpus_bleu([[code1]], [code2], smoothing_function=sm_func, ignoring=most_common_dict)
+        cs[int(label)].append(crystalbleuscore)
+        l_b = 1 if bleuscore > th_b else 0
+        l_c = 1 if crystalbleuscore > th_c else 0
+        bleu_label.append(l_b)
+        crystal_label.append(l_c)
+        true_label.append(int(label))
 
 
-# with open('clone_sim_scores.npy', 'wb') as f:
-#     np.save(f, np.array(bs[0]))
-#     np.save(f, np.array(bs[1]))
-#     np.save(f, np.array(cs[0]))
-#     np.save(f, np.array(cs[1]))
-# print_results(np.array(true_label), np.array(bleu_label), np.array(crystal_label))
+with open('clone_sim_scores.npy', 'wb') as f:
+    np.save(f, np.array(bs[0]))
+    np.save(f, np.array(bs[1]))
+    np.save(f, np.array(cs[0]))
+    np.save(f, np.array(cs[1]))
+print_results(np.array(true_label), np.array(bleu_label), np.array(crystal_label))
 
-print(len(inter_h), len(intra_h))
-# print('BLEU inter')
-# start_time = time.process_time()
-# bleu_inter = corpus_bleu(inter_r, inter_h, smoothing_function=sm_func)
-# print(time.process_time() - start_time)
-# print('BLEU intra')
-# start_time = time.process_time()
-# bleu_intra = corpus_bleu(intra_r, intra_h, smoothing_function=sm_func)
-# print(time.process_time() - start_time)
-# print('CrystalBLEU inter')
-# start_time = time.process_time()
-# crystal_inter = corpus_bleu(inter_r, inter_h, smoothing_function=sm_func, ignoring=most_common_dict)
-# print(time.process_time() - start_time)
-# print('CrystalBLEU intra')
-# start_time = time.process_time()
-# crystal_intra = corpus_bleu(intra_r, intra_h, smoothing_function=sm_func, ignoring=most_common_dict)
-# print(time.process_time() - start_time)
+print('# inter:', len(inter_h), '# intra:', len(intra_h))
+print('BLEU inter')
+start_time = time.process_time()
+bleu_inter = corpus_bleu(inter_r, inter_h, smoothing_function=sm_func)
+print('Calculation time:', time.process_time() - start_time)
+print('BLEU intra')
+start_time = time.process_time()
+bleu_intra = corpus_bleu(intra_r, intra_h, smoothing_function=sm_func)
+print('Calculation time:', time.process_time() - start_time)
+print('CrystalBLEU inter')
+start_time = time.process_time()
+crystal_inter = corpus_bleu(inter_r, inter_h, smoothing_function=sm_func, ignoring=most_common_dict)
+print('Calculation time:', time.process_time() - start_time)
+print('CrystalBLEU intra')
+start_time = time.process_time()
+crystal_intra = corpus_bleu(intra_r, intra_h, smoothing_function=sm_func, ignoring=most_common_dict)
+print('Calculation time:', time.process_time() - start_time)
 
 print('CodeBLEU inter')
 start_time = time.process_time()
 code_inter = code_bleu(inter_r, inter_h)
-print(time.process_time() - start_time)
+print('Calculation time:', time.process_time() - start_time)
 print('CodeBLEU intra')
 start_time = time.process_time()
 code_intra = code_bleu(intra_r, intra_h)
-print(time.process_time() - start_time)
+print('Calculation time:', time.process_time() - start_time)
 
-# print(f'BLEU distinguishability = {bleu_intra/bleu_inter}')
-# print(f'CrystalBLEU distinguishability = {crystal_intra/crystal_inter}')
+print(f'BLEU distinguishability = {bleu_intra/bleu_inter}')
+print(f'CrystalBLEU distinguishability = {crystal_intra/crystal_inter}')
 print(f'CodeBLEU distinguishability = {code_intra/code_inter}')

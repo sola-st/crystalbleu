@@ -1,9 +1,9 @@
 # CrystalBLEU
 
 ## Install
-Install `nltk`:
+Install the requirements:
 ```bash
-pip install nltk
+pip install -r requirements.txt
 ```
 Place `bleu_ignoring.py` accessible to your python script.
 
@@ -22,6 +22,18 @@ trivially_shared_ngrams = dict(frequencies.most_common(k))
 crystalBLEU_score = corpus_bleu(
     references, candidates, ignoring=trivially_shared_ngrams)
 ```
+
+---------------------------
+
+## Reproducing Paper Results
+The `scripts` directory contains scripts that generates results shown in the paper, based on the figure or table number, or the dataset used.  
+To run the experiments, first download and prepare the datasets by running:
+```bash
+bash ./scripts/prepare_data.sh english french java python c
+```
+You can select any subset of `english`, `french`, `java`, `python`, and `c`.  
+Scripts are mostly independent of eachother, except for the following:  
+- To run `figure8.sh`, you need to first run `big_clone_bench.sh` and `sharecode.sh`.
 
 ---------------------------
 
