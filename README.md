@@ -5,13 +5,16 @@ Install the requirements:
 ```bash
 pip install -r requirements.txt
 ```
-Place `bleu_ignoring.py` accessible to your python script.
+Install CrystalBLEU
+```bash
+pip install crystalbleu
+```
 
 ## Usage
 ```python
 from collections import Counter
 # Import CrystalBLEU
-from bleu_ignoring import corpus_bleu
+from crystalbleu import corpus_bleu
 
 # Extract trivially shared n-grams
 k = 500
