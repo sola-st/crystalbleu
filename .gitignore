@@ -4,3 +4,5 @@
 *dataset/
 *.pdf
 *.npy
+__pycache__/
+!ase2022-paper108.pdf

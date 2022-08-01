@@ -75,3 +75,15 @@ bash./scripts.figure8.sh
 When running `scripts/prepare_data.sh`, you can select any subset of `english`, `french`, `java`, `python`, and `c`. This allows downloading and preparing only the selected datasets. Note: this might cause some scripts to crash if they cannot find the required data files.  
 Scripts are mostly independent of eachother, except for the following:  
 - To run `figure8.sh`, you need to first run `big_clone_bench.sh` and `sharecode.sh`.
+
+---------------------------
+
+## Contents
+- `CodeBLEU/` contains the implementation of [CodeBLEU](https://github.com/microsoft/CodeXGLUE/tree/main/Code-Code/code-to-code-trans/evaluator/CodeBLEU), obtained from [CodeXGLUE](https://github.com/microsoft/CodeXGLUE).
+- `clone_detection/` contains the BigCloneBench dataset, obtained from [CodeXGLUE](https://github.com/microsoft/CodeXGLUE).
+- `concode/` contains the Concode dataset, obtained from [CodeXGLUE](https://github.com/microsoft/CodeXGLUE).
+- `sc_clone/` is derived from the [ShareCod](https://sharecode.io/) dataset in the style of BigCloneBench.
+- `scripts/` contains the scripts needed to reproduce the results from our paper.
+- `extra/` contains the scripts that were not used in the paper.
+- `ase2022-paper108.pdf` is a copy of our ASE'22 accepted submission.
+- `lang{0, 1, 2}.json` are data files from ShareCode for each of `C`, `C++`, and `Java` languages.
