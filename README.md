@@ -1,11 +1,6 @@
 # CrystalBLEU
 
 ## Install
-Install the requirements:
-```bash
-pip install -r requirements.txt
-```
-Install CrystalBLEU
 ```bash
 pip install crystalbleu
 ```
