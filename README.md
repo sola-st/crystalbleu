@@ -26,23 +26,52 @@ crystalBLEU_score = corpus_bleu(
 ---------------------------
 
 ## Reproducing Paper Results
-The `scripts` directory contains scripts that generates results shown in the paper, based on the figure or table number, or the dataset used.  
-To run the experiments, first download and prepare the datasets by running:
+The `scripts` directory contains scripts that generate results shown in the paper, based on the figure or table number, or the dataset used.  
+To reproduce the results from the paper run the following scripts in order:
 ```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Download and prepare the datasets
 bash ./scripts/prepare_data.sh english french java python c
+
+# Print the data in Table 1 and plot Figure 3
+bash ./scripts/table1-figure3.sh
+
+# Plot Figure 4
+bash ./scripts/figure4.sh
+
+# Print the first two rows of Table 2
+bash ./scripts/table2.sh
+
+# Print results from BigCloneBench:
+# - the third row of Table 2, 
+# - the right columns of Table 3,
+# - rows 3 & 4 of Table 4,
+# - the third row of Table 5, and
+# - Figure 5
+bash ./scripts/big_clone_bench.sh
+
+# Print results from ShareCode:
+# - the left columns of Table 3,
+# - rows 1 & 2 of Table 4, and
+# - rows 1 & 2 of Table 5
+bash ./scripts/sharecode.sh
+
+# Results from Concode:
+# - the last row of Table 4,
+# - the last row of Table 5, and
+# - plot Figure 6
+bash ./scripts/figure6.sh
+
+# Plot Figure 7
+bash ./scripts/figure7.sh
+
+# Plot Figure 8
+bash./scripts.figure8.sh
 ```
-You can select any subset of `english`, `french`, `java`, `python`, and `c`.  
+
+
+When running `scripts/prepare_data.sh`, you can select any subset of `english`, `french`, `java`, `python`, and `c`. This allows downloading and preparing only the selected datasets. Note: this might cause some scripts to crash if they cannot find the required data files.  
 Scripts are mostly independent of eachother, except for the following:  
 - To run `figure8.sh`, you need to first run `big_clone_bench.sh` and `sharecode.sh`.
-
----------------------------
-
-## Data
-- `scores_*.json` contain the human study score results
-- `data*.json` contain the code pairs of the human study (the ids match with scores)
-
-## Scripts
-- The implementation of CrystalBLEU is available in `bleu_ignoring.py`
-- `prepare_human_study.py` generates the pairs of programs for the human study
-- `analyze_results.py` outputs the correlations regarding the human study
-- `small_v1.py` calculates the distinguishability for ShareCode dataset

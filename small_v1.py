@@ -22,7 +22,18 @@ from ast import literal_eval as make_tuple
 font = {'size': 14}
 matplotlib.rc('font', **font)
 
-LANG = 2
+if len(sys.argv) > 1:
+    if sys.argv[1] == 'java':
+        print('Running Java...')
+        LANG = 2
+    elif sys.argv[1] == 'c++':
+        print('Running C++...')
+        LANG = 1
+    else:
+        print('Running C...')
+        LANG = 0
+else:
+    LANG = 2
 MAXN = 4
 N = 12
 MC = 500
@@ -84,7 +95,7 @@ for k, v in data.items():
             #     else:
             #         doc_count[j] = 1
 
-print(total_prog)
+print('Total number of programs:', total_prog)
 # # print(count, len(all_ngrams))
 # L = len(all_ngrams)
 # print(L)
@@ -94,7 +105,7 @@ freq = Counter(all_ngrams)
 # # print('min_count: ', tmp_most_common[-1])
 # print(freq.most_common(100))
 # freq.most_common(1000)
-print(time.process_time() - start_time, 'seconds')
+print('Preprocessing time:', time.process_time() - start_time, 'seconds')
 # print(len(all_ngrams), len(freq))
 print('{} tokens'.format(total_tokens))
 # # exit()
@@ -138,11 +149,11 @@ for k, v in data.items():
         # pairs.append((v[i], refs))
         if cc >= 20:
             break
-print(len(solutions), np.mean(solutions), np.std(solutions))
+# print(len(solutions), np.mean(solutions), np.std(solutions))
 # exit(0)
-print(len(pairs))
+# print(len(pairs))
 sample = random.sample(pairs, sample_size)
-print(len(sample))
+print('Number of reference, hypothesis pairs: ', len(sample))
 
 candidates = list(
     map(lambda x: [i[1] for i in lexer.get_tokens(x[0]) if not (re.fullmatch('\s+', i[1]) or (i[0] in Comment))], sample))
@@ -175,20 +186,20 @@ for i in range(N):
     start_time = time.process_time()
     intra_bleu_w_freq = corpus_bleu(
         references, candidates, smoothing_function=sm_func, ignoring=most_common_dict)
-    print(time.process_time() - start_time, 'seconds for CrystalBLEU')
+    print('Calculation time for', mc, 'top n-grams:', time.process_time() - start_time, 'seconds for CrystalBLEU')
     print('Intra-class corpus CrystalBLEU:', intra_bleu_w_freq)
     Y_intra.append(intra_bleu_w_freq)
     mc *= 3
 start_time = time.process_time()
 intra_bleu_vanilla = corpus_bleu(
     references, candidates, smoothing_function=sm_func)
-print(time.process_time() - start_time, 'seconds for BLEU')
+print('Calculation time:', time.process_time() - start_time, 'seconds for BLEU')
 print('Intra-class corpus BLEU:', intra_bleu_vanilla)
 
 start_time = time.process_time()
 codebleu_intra = code_bleu(
     references, candidates)
-print(time.process_time() - start_time, 'seconds for CodeBLEU')
+print('Calculation time:', time.process_time() - start_time, 'seconds for CodeBLEU')
 print('Intra-class CodeBLEU:', codebleu_intra)
 
 for i in range(N):
@@ -218,9 +229,9 @@ for k1, v1 in data.items():
             # pairs.append((i, refs))
         if cc >= 20:
             break
-print(len(pairs))
+# print(len(pairs))
 sample = random.sample(pairs, sample_size)
-print(len(sample))
+print('Number of reference, hypothesis pairs: ', len(sample))
 
 candidates = list(
     map(lambda x: [i[1] for i in lexer.get_tokens(x[0]) if not (re.fullmatch('\s+', i[1]) or (i[0] in Comment))], sample))
@@ -252,20 +263,20 @@ for i in range(N):
     start_time = time.process_time()
     inter_bleu_w_freq = corpus_bleu(
         references, candidates, smoothing_function=sm_func, ignoring=most_common_dict)
-    print(time.process_time() - start_time, 'seconds for CrystalBLEU')
+    print('Calculation time for', mc, 'top n-grams:', time.process_time() - start_time, 'seconds for CrystalBLEU')
     print('Inter-class corpus CrystalBLEU:', inter_bleu_w_freq)
     Y_inter.append(inter_bleu_w_freq)
     mc *= 3
 start_time = time.process_time()
 inter_bleu_vanilla = corpus_bleu(
     references, candidates, smoothing_function=sm_func)
-print(time.process_time() - start_time, 'seconds for BLEU')
+print('Calculation time:', time.process_time() - start_time, 'seconds for BLEU')
 print('Inter-class corpus BLEU:', inter_bleu_vanilla)
 
 start_time = time.process_time()
 codebleu_inter = code_bleu(
     references, candidates)
-print(time.process_time() - start_time, 'seconds for CodeBLEU')
+print('Calculation time:', time.process_time() - start_time, 'seconds for CodeBLEU')
 print('Inter-class CodeBLEU:', codebleu_inter)
 
 for i in range(N):
@@ -280,7 +291,7 @@ with open('java_distinguishability.npy', 'wb') as f:
     np.save(f, np.array(Y_v_inter))
 # with open('java_diff.txt', 'w') as f:
 #     f.write(str(Y_v_intra[0] - Y_v_inter[0]) + '\n' + str(np.array(Y_intra) - np.array(Y_inter)))
-print(Y_v_intra[0] - Y_v_inter[0], np.array(Y_intra) - np.array(Y_inter))
+# print(Y_v_intra[0] - Y_v_inter[0], np.array(Y_intra) - np.array(Y_inter))
 # print('Diff for intra-inter with frequency adjustment:',
 #       intra_bleu_w_freq - inter_bleu_w_freq)
 # print('Diff for intra-inter vanilla:', intra_bleu_vanilla - inter_bleu_vanilla)
