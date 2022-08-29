@@ -15,6 +15,7 @@ from pygments.lexers.c_cpp import CLexer, CppLexer
 from matplotlib import pyplot as plt
 from ast import literal_eval as make_tuple
 from pygments.token import Comment
+from statistical_test import stat_test
 
 MAXN = 4
 mc = 500
@@ -72,7 +73,7 @@ for j in range(len(ref)):
     i = 1
     while len(res) < len(ref[j][0]):
         try:
-            if random.random() < 0.82:#0.82
+            if random.random() < 0.825:#0.82
                 k, v = cn.__next__()
                 res = list(k) + res
             else:
@@ -81,39 +82,6 @@ for j in range(len(ref)):
         except:
             cn = comm_ngrams.items().__iter__()
 
-    # count = 0
-    # tokens = ref[j][0].copy()
-    # baseline = hyp[j]
-    # baselinescore = corpus_bleu([ref[j]], [baseline], smoothing_function=sm_func)
-    # bleuscore = corpus_bleu([ref[j]], [tokens], smoothing_function=sm_func, ignoring=most_common_dict)
-    # # assert bleuscore > 0.9
-    # pntr = len(tokens)
-    # cn = comm_ngrams.items().__iter__()
-    # while (bleuscore > baselinescore):
-    #     try:
-    #         k, v = cn.__next__()
-    #         while not (any([True for i in k if i in ref[j][0]])):
-    #             k, v = cn.__next__()
-    #     except StopIteration:
-    #         break
-    #     tokens = tokens[:pntr-len(k)] + list(k) + tokens[pntr:]
-    #     bleuscore = corpus_bleu([ref[j]], [tokens], smoothing_function=sm_func, ignoring=most_common_dict)
-    #     pntr -= len(k)
-    #     if pntr < 4:
-    #         pntr = len(tokens)
-
-    # chs = list(range(len(tokens)))
-    # for k, v in comm_ngrams.items():
-    #     if (bleuscore > baselinescore - 0.03) and (len(chs) > len(k)):
-    #         r = random.randrange(0, len(chs)-len(k))
-    #         chs = chs[:r] + chs[r+len(k):]
-    #         tokens = tokens[:chs[r]] + list(k) + tokens[chs[r]+len(k):]
-    #         bleuscore = corpus_bleu([ref[c]], [tokens], smoothing_function=sm_func)
-    #     else:
-    #         break
-    # hyp2.append([i[1] for i in lexer.get_tokens(res) if not (re.fullmatch('\s+', i[1]) or (i[0] in Comment))])
-    # if j % 10 == 0:
-    #     print(' '.join(res))
     hyp2.append(res)
     c += 1
 
@@ -167,3 +135,4 @@ codebleu = code_bleu(
 print(time.process_time() - start_time, 'seconds for CodeBLEU')
 print('CodeBLEU:', codebleu)
 
+stat_test(ref, hyp, hyp2, most_common_dict)
