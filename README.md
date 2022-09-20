@@ -13,7 +13,7 @@ from crystalbleu import corpus_bleu
 
 # Extract trivially shared n-grams
 k = 500
-frequencies = Counter(tokenized_corpus)
+frequencies = Counter(tokenized_corpus) # tokenized_corpus is a list of strings
 trivially_shared_ngrams = dict(frequencies.most_common(k))
 
 # Calculate CrystalBLEU
