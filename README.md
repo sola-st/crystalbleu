@@ -23,6 +23,14 @@ crystalBLEU_score = corpus_bleu(
 
 ---------------------------
 
+## Paper
+
+Our paper on CrystalBLEU has been presented at the 37th IEEE/ACM International Conference on Automated Software Engineering (ASE), where it was awarded with an *ACM SIGSOFT Distinguished Paper Award*.
+
+[Download the PDF](https://software-lab.org/publications/ase2022_CrystalBLEU.pdf)
+
+---------------------------
+
 ## Reproducing Paper Results
 The `scripts` directory contains scripts that generate results shown in the paper, based on the figure or table number, or the dataset used.  
 To reproduce the results from the paper run the following scripts in order:
@@ -83,5 +91,4 @@ Scripts are mostly independent of eachother, except for the following:
 - `sc_clone/` is derived from the [ShareCod](https://sharecode.io/) dataset in the style of BigCloneBench.
 - `scripts/` contains the scripts needed to reproduce the results from our paper.
 - `extra/` contains the scripts that were not used in the paper.
-- `ase2022-paper108.pdf` is a copy of our ASE'22 accepted submission.
 - `lang{0, 1, 2}.json` are data files from ShareCode for each of `C`, `C++`, and `Java` languages.
