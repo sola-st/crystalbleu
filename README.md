@@ -8,15 +8,22 @@ pip install crystalbleu
 ## Usage
 ```python
 from collections import Counter
-# Import CrystalBLEU
+from nltk.util import ngrams
+# 1. Import CrystalBLEU
 from crystalbleu import corpus_bleu
 
-# Extract trivially shared n-grams
+# 2. Extract trivially shared n-grams
 k = 500
-frequencies = Counter(tokenized_corpus) # tokenized_corpus is a list of strings
+# <tokenized_corpus> is a list of strings
+# Extract all n-grams of length 1-4
+all_ngrams = []
+for n in range(1, 5):
+    all_ngrams.extend(list(ngrams(tokenized_corpus, n)))
+# Calculate frequencies of all n-grams
+frequencies = Counter(all_ngrams)
 trivially_shared_ngrams = dict(frequencies.most_common(k))
 
-# Calculate CrystalBLEU
+# 3. Calculate CrystalBLEU
 crystalBLEU_score = corpus_bleu(
     references, candidates, ignoring=trivially_shared_ngrams)
 ```

@@ -135,4 +135,11 @@ codebleu = code_bleu(
 print(time.process_time() - start_time, 'seconds for CodeBLEU')
 print('CodeBLEU:', codebleu)
 
-stat_test(ref, hyp, hyp2, most_common_dict)
+# stat_test(ref, hyp, hyp2, most_common_dict)
+
+samp = random.choices(range(len(ref)), k=10)
+print('\n'.join([' '.join(ref[i][0]) for i in samp]))
+print('------------------------------------------------------------------')
+print('\n'.join([' '.join(hyp[i]) for i in samp]))
+print('------------------------------------------------------------------')
+print('\n'.join([' '.join(hyp2[i]) for i in samp]))
