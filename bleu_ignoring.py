@@ -16,11 +16,39 @@
 
 import math
 import sys
-from fractions import Fraction
+from fractions import Fraction as _Fraction
 import warnings
 from collections import Counter
 
 from nltk.util import ngrams
+
+
+class Fraction(_Fraction):
+    """Fraction with _normalize=False support for 3.12"""
+
+    def __new__(cls, numerator=0, denominator=None, _normalize=False):
+        if sys.version_info >= (3, 12):
+            self = super().__new__(cls, numerator, denominator)
+        else:
+            self = super().__new__(cls, numerator, denominator, _normalize=_normalize)
+        self._normalize = _normalize
+        self._original_numerator = numerator
+        self._original_denominator = denominator
+        return self
+
+    @property
+    def numerator(self):
+        if not self._normalize:
+            return self._original_numerator
+        return super().numerator
+
+    @property
+    def denominator(self):
+        if not self._normalize:
+            return self._original_denominator
+        return super().denominator
+
+
 
 
 def sentence_bleu(
